@@ -112,5 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('Button with class "workspace-save-button" not found.');
         showFailureModal(errorMessage);
+        hideLoadingOverlay();
     }
 });
