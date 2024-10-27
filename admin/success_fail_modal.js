@@ -51,16 +51,6 @@ function closeModal(modal) {
     location.reload();
 }
 
-// Example usage: error handling with a detailed error message
-const workspaceSlugElement = document.querySelector('.workspace-slug');
-if (!workspaceSlugElement) {
-    const errorMessage = 'Error: Workspace slug element not found.';
-    console.error(errorMessage);
-    showFailureModal(errorMessage); // Pass error message to failure modal
-    hideLoadingOverlay(); // Hide loading overlay
-    return;
-}
-
 // Event listeners for closing each modal
 const closeSuccessButton = successModal.querySelector('.close-button');
 closeSuccessButton.addEventListener('click', () => closeModal(successModal));
