@@ -9,8 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showLoadingOverlay();
 
             if (!firstWebhookData) {
-                const errorMessage = 'First webhook data not available.';
-                showFailureModal(errorMessage);
+                showFailureModal('First webhook data not available.');
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -18,54 +17,41 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchingItemIndex = firstWebhookData.items.findIndex(item => item.fieldData.name === buttonName);
 
             if (matchingItemIndex === -1) {
-                const errorMessage = `No matching item found for button name: ${buttonName}`;
-                showFailureModal(errorMessage);
+                showFailureModal(`No matching item found for button name: ${buttonName}`);
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
 
             const itemId = firstWebhookData.items[matchingItemIndex].id;
 
-            const workspaceNameElement = document.querySelector('.workspace-name');
-            if (!workspaceNameElement) {
-                const errorMessage = 'Error: Workspace name element not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay(); // Hide loading overlay
-                return;
-            }
-            const workspaceName = workspaceNameElement.value.trim();
+            // Utility function to check element existence and value
+            const checkElementValue = (selector, errorMessage) => {
+                const element = document.querySelector(selector);
+                if (!element || !element.value.trim()) {
+                    showFailureModal(errorMessage);
+                    hideLoadingOverlay(); // Hide loading overlay
+                    return null; // Indicate failure
+                }
+                return element.value.trim(); // Return trimmed value if valid
+            };
 
-            const workspaceSlugElement = document.querySelector('.workspace-slug');
-            if (!workspaceSlugElement) {
-                const errorMessage = 'Error: Workspace slug element not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay(); // Hide loading overlay
-                return;
-            }
-            const workspaceSlug = workspaceSlugElement.value.trim();
+            // Check values for each required field
+            const workspaceName = checkElementValue('.workspace-name', 'Error: Workspace name cannot be empty.');
+            if (workspaceName === null) return; // Exit if check failed
 
-            const workspaceDescriptionElement = document.querySelector('.workspace-description');
-            if (!workspaceDescriptionElement) {
-                const errorMessage = 'Error: Workspace description element not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay(); // Hide loading overlay
-                return;
-            }
-            const workspaceDescription = workspaceDescriptionElement.value.trim();
+            const workspaceSlug = checkElementValue('.workspace-slug', 'Error: Workspace slug cannot be empty.');
+            if (workspaceSlug === null) return; // Exit if check failed
 
-            const workspaceRoleElement = document.querySelector('.workspace-role');
-            if (!workspaceRoleElement) {
-                const errorMessage = 'Error: Workspace role element not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay(); // Hide loading overlay
-                return;
-            }
-            const workspaceRole = workspaceRoleElement.value.trim();
+            const workspaceDescription = checkElementValue('.workspace-description', 'Error: Workspace description cannot be empty.');
+            if (workspaceDescription === null) return; // Exit if check failed
+
+            const workspaceRole = checkElementValue('.workspace-role', 'Error: Workspace role cannot be empty.');
+            if (workspaceRole === null) return; // Exit if check failed
 
             const dashboardTableRows = document.querySelectorAll('.admin-table tr');
             const dashboards = [];
             dashboardTableRows.forEach((row, index) => {
-                if (index === 0) return;
+                if (index === 0) return; // Skip header row
                 const idCell = row.querySelector('td:first-child');
                 if (idCell) {
                     dashboards.push(idCell.textContent.trim());
@@ -94,10 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
                     const errorMessage = `HTTP error! Status: ${response.status}`;
                     showFailureModal(errorMessage);
-                    hideLoadingOverlay();
+                    hideLoadingOverlay(); // Hide loading overlay
+                    throw new Error(errorMessage); // Throw error to be caught in catch block
                 }
                 return response.json();
             })
@@ -114,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         console.error('Button with class "workspace-save-button" not found.');
-        showFailureModal(errorMessage);
+        showFailureModal('Button with class "workspace-save-button" not found.');
         hideLoadingOverlay();
     }
 });
