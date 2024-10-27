@@ -94,35 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('New row added to the table.');
     }    
 
-    // Part 2: Success Modal Creation
-    const successModal = document.createElement('div');
-    successModal.id = 'success-modal';
-    successModal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <p>Je wijzigingen zijn succesvol opgeslagen!</p>
-        </div>`;
-    document.body.appendChild(successModal);
-
-    function showModal() {
-        successModal.style.display = 'block';
-    }
-
-    function closeModal() {
-        successModal.style.display = 'none';
-        fetchWebhookData(); // Assuming fetchWebhookData is defined
-    }
-
-    const closeButton = successModal.querySelector('.close-button');
-    closeButton.addEventListener('click', closeModal);
-
-    window.addEventListener('click', (event) => {
-        if (event.target === successModal) {
-            closeModal();
-        }
-    });
-
-    // Part 3: Create Workspace Button
+    // Part 2: Create Workspace Button
     const createWorkspaceButton = document.querySelector('.create-workspace-button');
 
     if (createWorkspaceButton) {

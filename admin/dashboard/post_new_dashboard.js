@@ -1,34 +1,6 @@
 // post_new_dashboard.js
 document.addEventListener('DOMContentLoaded', () => {
-    // Part 1: Success Modal Creation
-    const successModal = document.createElement('div');
-    successModal.id = 'success-modal';
-    successModal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <p>Je wijzigingen zijn succesvol opgeslagen!</p>
-        </div>`;
-    document.body.appendChild(successModal);
-
-    function showModal() {
-        successModal.style.display = 'block';
-    }
-
-    function closeModal() {
-        successModal.style.display = 'none';
-        fetchWebhookData(); // Assuming fetchWebhookData is defined
-    }
-
-    const closeButton = successModal.querySelector('.close-button');
-    closeButton.addEventListener('click', closeModal);
-
-    window.addEventListener('click', (event) => {
-        if (event.target === successModal) {
-            closeModal();
-        }
-    });
-
-    // Part 2: Create Dashboard Button
+    // Create Dashboard Button
     const createDashboardButton = document.querySelector('.create-dashboard-button');
 
     if (createDashboardButton) {

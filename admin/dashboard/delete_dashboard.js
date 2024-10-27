@@ -1,39 +1,5 @@
 // delete_dashboards.js
 document.addEventListener('DOMContentLoaded', () => {
-    // Create a modal for success notification
-    const successModal = document.createElement('div');
-    successModal.id = 'success-modal';
-    successModal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <p>Dashboard verwijderd!</p>
-        </div>
-    `;
-    document.body.appendChild(successModal);
-
-    // Function to show the modal
-    function showModal() {
-        successModal.style.display = 'block';
-    }
-
-    // Function to close the modal
-    function closeModal() {
-        successModal.style.display = 'none';
-        // Trigger both webhooks when the modal is closed
-        fetchWebhookData();
-    }
-
-    // Event listener for closing the modal
-    const closeButton = successModal.querySelector('.close-button');
-    closeButton.addEventListener('click', closeModal);
-
-    // Event listener to close the modal when clicking outside the modal
-    window.addEventListener('click', (event) => {
-        if (event.target === successModal) {
-            closeModal();
-        }
-    });
-
     // Select the button with class 'delete-dash-button'
     const button = document.querySelector('.delete-dash-button'); 
 
