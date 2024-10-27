@@ -33,9 +33,9 @@ function showFailureModal(errorMessage = '') {
     failureModal.style.display = 'block';
 }
 
-// Function to close modals and store active tab state
-function closeModal(modal) {
-    modal.style.display = 'none';
+// Function to close the success modal and store active tab state
+function closeSuccessModal() {
+    successModal.style.display = 'none';
 
     // Store the active tab value in sessionStorage
     const activeTab = document.querySelector('.w-tab-pane.w--tab-active');
@@ -51,23 +51,29 @@ function closeModal(modal) {
     location.reload();
 }
 
+// Function to close the failure modal
+function closeFailureModal() {
+    failureModal.style.display = 'none';
+}
+
 // Event listeners for closing each modal
 const closeSuccessButton = successModal.querySelector('.close-button');
-closeSuccessButton.addEventListener('click', () => closeModal(successModal));
+closeSuccessButton.addEventListener('click', closeSuccessModal);
 
 const closeFailureButton = failureModal.querySelector('.close-button');
-closeFailureButton.addEventListener('click', () => closeModal(failureModal));
+closeFailureButton.addEventListener('click', closeFailureModal);
 
 // Event listener to close modals when clicking outside of them
 window.addEventListener('click', (event) => {
     if (event.target === successModal) {
-        closeModal(successModal);
+        closeSuccessModal();
     } else if (event.target === failureModal) {
-        closeModal(failureModal);
+        closeFailureModal();
     }
 });
 
 // Export functions to make them accessible globally
 window.showSuccessModal = showSuccessModal;
 window.showFailureModal = showFailureModal;
-window.closeModal = closeModal;
+window.closeSuccessModal = closeModal;
+window.closeFailureModal = closeModal;
