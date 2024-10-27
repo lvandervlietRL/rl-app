@@ -1,2 +1,2 @@
 add page loader for all scripts
-error messages for admin page, addition to modal, when wrong input is given
+add error messages for all scripts

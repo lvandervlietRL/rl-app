@@ -37,7 +37,7 @@ function showFailureModal(errorMessage = '') {
 function closeSuccessModal() {
     successModal.style.display = 'none';
 
-    // Store the active tab value in sessionStorage
+    // Store the active tab value in sessionStorage only if the operation was successful
     const activeTab = document.querySelector('.w-tab-pane.w--tab-active');
     if (activeTab) {
         const activeTabLink = document.querySelector(`.dash_profile-nav-link[aria-controls="${activeTab.id}"]`);
@@ -72,8 +72,22 @@ window.addEventListener('click', (event) => {
     }
 });
 
+// Load the initial tab state on page load
+window.addEventListener('load', () => {
+    // Show the first tab by default (with data-w-tab="Overzicht")
+    const firstTab = document.querySelector('.dash_profile-nav-link[data-w-tab="Overzicht"]');
+    if (firstTab) {
+        firstTab.classList.add('w--current'); // Mark as active
+        const firstTabPaneId = firstTab.getAttribute('aria-controls');
+        const firstTabPane = document.getElementById(firstTabPaneId);
+        if (firstTabPane) {
+            firstTabPane.classList.add('w--tab-active'); // Show the corresponding pane
+        }
+    }
+});
+
 // Export functions to make them accessible globally
 window.showSuccessModal = showSuccessModal;
 window.showFailureModal = showFailureModal;
-window.closeSuccessModal = closeModal;
-window.closeFailureModal = closeModal;
+window.closeSuccessModal = closeSuccessModal; // Corrected function name
+window.closeFailureModal = closeFailureModal; // Corrected function name
