@@ -9,13 +9,14 @@ successModal.innerHTML = `
 `;
 document.body.appendChild(successModal);
 
-// Create a global failure modal element
+// Create a global failure modal element with a placeholder for the error message
 const failureModal = document.createElement('div');
 failureModal.id = 'failure-modal';
 failureModal.innerHTML = `
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <p>Er is een fout opgetreden. Probeer het opnieuw.</p>
+        <p id="error-message" style="color: red; font-weight: bold;"></p> <!-- Placeholder for dynamic error message -->
     </div>
 `;
 document.body.appendChild(failureModal);
@@ -25,8 +26,10 @@ function showSuccessModal() {
     successModal.style.display = 'block';
 }
 
-// Function to show the failure modal
-function showFailureModal() {
+// Function to show the failure modal with a specific error message
+function showFailureModal(errorMessage = '') {
+    const errorMessageElement = document.getElementById('error-message');
+    errorMessageElement.textContent = errorMessage; // Set the error message
     failureModal.style.display = 'block';
 }
 
@@ -48,6 +51,16 @@ function closeModal(modal) {
     location.reload();
 }
 
+// Example usage: error handling with a detailed error message
+const workspaceSlugElement = document.querySelector('.workspace-slug');
+if (!workspaceSlugElement) {
+    const errorMessage = 'Error: Workspace slug element not found.';
+    console.error(errorMessage);
+    showFailureModal(errorMessage); // Pass error message to failure modal
+    hideLoadingOverlay(); // Hide loading overlay
+    return;
+}
+
 // Event listeners for closing each modal
 const closeSuccessButton = successModal.querySelector('.close-button');
 closeSuccessButton.addEventListener('click', () => closeModal(successModal));
@@ -55,7 +68,7 @@ closeSuccessButton.addEventListener('click', () => closeModal(successModal));
 const closeFailureButton = failureModal.querySelector('.close-button');
 closeFailureButton.addEventListener('click', () => closeModal(failureModal));
 
-// Event listeners to close modals when clicking outside of them
+// Event listener to close modals when clicking outside of them
 window.addEventListener('click', (event) => {
     if (event.target === successModal) {
         closeModal(successModal);

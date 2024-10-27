@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
             showLoadingOverlay();
 
             if (!firstWebhookData) {
-                console.error('First webhook data not available.');
+                const errorMessage = 'First webhook data not available.';
+                showFailureModal(errorMessage);
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -17,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchingItemIndex = firstWebhookData.items.findIndex(item => item.fieldData.name === buttonName);
 
             if (matchingItemIndex === -1) {
-                console.error(`No matching item found for button name: ${buttonName}`);
+                const errorMessage = `No matching item found for button name: ${buttonName}`;
+                showFailureModal(errorMessage);
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -26,7 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const workspaceNameElement = document.querySelector('.workspace-name');
             if (!workspaceNameElement) {
-                console.error('Error: Workspace name element not found.');
+                const errorMessage = 'Error: Workspace name element not found.';
+                showFailureModal(errorMessage);
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -34,7 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const workspaceSlugElement = document.querySelector('.workspace-slug');
             if (!workspaceSlugElement) {
-                console.error('Error: Workspace slug element not found.');
+                const errorMessage = 'Error: Workspace slug element not found.';
+                showFailureModal(errorMessage);
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -42,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const workspaceDescriptionElement = document.querySelector('.workspace-description');
             if (!workspaceDescriptionElement) {
-                console.error('Error: Workspace description element not found.');
+                const errorMessage = 'Error: Workspace description element not found.';
+                showFailureModal(errorMessage);
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -50,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const workspaceRoleElement = document.querySelector('.workspace-role');
             if (!workspaceRoleElement) {
-                console.error('Error: Workspace role element not found.');
+                const errorMessage = 'Error: Workspace role element not found.';
+                showFailureModal(errorMessage);
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -98,11 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideLoadingOverlay(); // Hide loading overlay
             })
             .catch(error => {
-                console.error('Error sending data to the webhook:', error);
+                const errorMessage = `Error sending data to the webhook: ${error}`;
+                showFailureModal(errorMessage);
                 hideLoadingOverlay(); // Hide loading overlay on error
             });
         });
     } else {
         console.error('Button with class "workspace-save-button" not found.');
+        showFailureModal(errorMessage);
     }
 });

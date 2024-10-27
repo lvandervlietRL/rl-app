@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!firstWebhookData) {
                 console.error('First webhook data not available.');
+                showFailureModal();
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!workspaceNameElement || !workspaceSlugElement || !workspaceDescriptionElement || !workspaceRoleElement) {
                 console.error('Error: Required workspace fields not found.');
+                showFailureModal();
                 hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
@@ -148,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
+                    showFailureModal();
                     hideLoadingOverlay(); // Hide loading overlay
                 }
                 return response.json();
@@ -159,11 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Error sending data to the webhook:', error);
+                showFailureModal();
                 hideLoadingOverlay(); // Hide loading overlay
             });
         });
     } else {
         console.error('Button with class "create-workspace-button" not found.');
+        showFailureModal();
         hideLoadingOverlay(); // Hide loading overlay
     }
 });
