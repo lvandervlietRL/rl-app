@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (button) {
         button.addEventListener('click', function () {
+            // Show loading overlay
+            showLoadingOverlay();
 
             if (!firstWebhookData) {
                 console.error('First webhook data not available.');
+                hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
 
@@ -15,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (matchingItemIndex === -1) {
                 console.error(`No matching item found for button name: ${buttonName}`);
+                hideLoadingOverlay(); // Hide loading overlay
                 return;
             }
 
@@ -34,15 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
+                    hideLoadingOverlay(); // Hide loading overlay
                 }
                 return response.json();
             })
             .then(data => {
                 console.log('Response from webhook:', data);
                 showModal(); // Show success modal
+                hideLoadingOverlay(); // Hide loading overlay
             })
             .catch(error => {
                 console.error('Error sending data to the webhook:', error);
+                hideLoadingOverlay(); // Hide loading overlay on error
             });
         });
     } else {
