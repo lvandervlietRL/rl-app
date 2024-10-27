@@ -154,7 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Response from webhook:', data);
-                showModal();
+                showModal(); // Show global success modal
+                hideLoadingOverlay(); // Hide loading overlay
             })
             .catch(error => {
                 console.error('Error sending data to the webhook:', error);
