@@ -1,4 +1,4 @@
-// Create a global modal element
+// Create a global success modal element
 const successModal = document.createElement('div');
 successModal.id = 'success-modal';
 successModal.innerHTML = `
@@ -9,14 +9,30 @@ successModal.innerHTML = `
 `;
 document.body.appendChild(successModal);
 
-// Function to show the modal
-function showModal() {
+// Create a global failure modal element
+const failureModal = document.createElement('div');
+failureModal.id = 'failure-modal';
+failureModal.innerHTML = `
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <p>Er is een fout opgetreden. Probeer het opnieuw.</p>
+    </div>
+`;
+document.body.appendChild(failureModal);
+
+// Function to show the success modal
+function showSuccessModal() {
     successModal.style.display = 'block';
 }
 
-// Function to close the modal and store active tab state
-function closeModal() {
-    successModal.style.display = 'none';
+// Function to show the failure modal
+function showFailureModal() {
+    failureModal.style.display = 'block';
+}
+
+// Function to close modals and store active tab state
+function closeModal(modal) {
+    modal.style.display = 'none';
 
     // Store the active tab value in sessionStorage
     const activeTab = document.querySelector('.w-tab-pane.w--tab-active');
@@ -32,17 +48,23 @@ function closeModal() {
     location.reload();
 }
 
-// Event listener for closing the modal
-const closeButton = successModal.querySelector('.close-button');
-closeButton.addEventListener('click', closeModal);
+// Event listeners for closing each modal
+const closeSuccessButton = successModal.querySelector('.close-button');
+closeSuccessButton.addEventListener('click', () => closeModal(successModal));
 
-// Event listener to close the modal when clicking outside of it
+const closeFailureButton = failureModal.querySelector('.close-button');
+closeFailureButton.addEventListener('click', () => closeModal(failureModal));
+
+// Event listeners to close modals when clicking outside of them
 window.addEventListener('click', (event) => {
     if (event.target === successModal) {
-        closeModal();
+        closeModal(successModal);
+    } else if (event.target === failureModal) {
+        closeModal(failureModal);
     }
 });
 
-// Export showModal and closeModal functions to make them accessible globally
-window.showModal = showModal;
+// Export functions to make them accessible globally
+window.showSuccessModal = showSuccessModal;
+window.showFailureModal = showFailureModal;
 window.closeModal = closeModal;

@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Response from webhook:', data);
-                showModal(); // Show success modal
+                showSuccessModal(); // Show success modal
             })
             .catch(error => {
                 console.error('Error sending data to the webhook:', error);
