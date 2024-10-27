@@ -95,6 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
+                    const errorMessage = `HTTP error! Status: ${response.status}`;
+                    showFailureModal(errorMessage);
+                    hideLoadingOverlay();
                 }
                 return response.json();
             })
