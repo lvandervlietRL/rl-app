@@ -1,50 +1,5 @@
 // patch_workspace.js
 document.addEventListener('DOMContentLoaded', () => {
-    // Create a modal for success notification
-    const successModal = document.createElement('div');
-    successModal.id = 'success-modal';
-    successModal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <p>Je wijzigingen zijn succesvol opgeslagen!</p>
-        </div>
-    `;
-    document.body.appendChild(successModal);
-
-    // Function to show the modal
-    function showModal() {
-        successModal.style.display = 'block';
-    }
-
-    // Function to close the modal
-    function closeModal() {
-        successModal.style.display = 'none';
-
-        // Store the active tab value in sessionStorage
-        const activeTab = document.querySelector('.w-tab-pane.w--tab-active');
-        if (activeTab) {
-            const activeTabLink = document.querySelector(`.dash_profile-nav-link[aria-controls="${activeTab.id}"]`);
-            if (activeTabLink) {
-                const activeTabValue = activeTabLink.getAttribute('data-w-tab'); // Get the value of data-w-tab
-                sessionStorage.setItem('activeTab', activeTabValue);
-            }
-        }
-
-        // Reload the page
-        location.reload();
-    }
-
-    // Event listener for closing the modal
-    const closeButton = successModal.querySelector('.close-button');
-    closeButton.addEventListener('click', closeModal);
-
-    // Event listener to close the modal when clicking outside the modal
-    window.addEventListener('click', (event) => {
-        if (event.target === successModal) {
-            closeModal();
-        }
-    });
-
     // Select the button with class 'workspace-save-button'
     const button = document.querySelector('.workspace-save-button'); 
 
@@ -139,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Response from webhook:', data);
-                showModal(); // Show success modal
+                showModal(); // Show global success modal
                 hideLoadingOverlay(); // Hide loading overlay
             })
             .catch(error => {
