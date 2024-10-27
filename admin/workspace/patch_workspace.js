@@ -1,4 +1,3 @@
-<script>
 // patch_workspace.js
 document.addEventListener('DOMContentLoaded', () => {
     // Create a modal for success notification
@@ -152,4 +151,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Button with class "workspace-save-button" not found.');
     }
 });
-</script>

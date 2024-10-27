@@ -1,4 +1,3 @@
-<script>
 // get_admin_data.js
 
 // Declare global variables
@@ -66,4 +65,3 @@ function fetchWebhookData() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchWebhookData(); // Run on page load
 });
-</script>

@@ -1,4 +1,4 @@
-<script>
+// edit_workspace_dashboards.js
 document.addEventListener('DOMContentLoaded', () => {
     // Select the 'update-dashboards-button' anchor tag
     const updateButton = document.querySelector('.update-dashboards-button');
@@ -116,4 +116,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('New row added to the table.');
     }
 });
-</script>

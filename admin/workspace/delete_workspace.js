@@ -1,4 +1,3 @@
-<script>
 // delete_workspace.js
 document.addEventListener('DOMContentLoaded', () => {
     // Create a modal for success notification
@@ -95,4 +94,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Button with class "delete-workspace-button" not found.');
     }
 });
-</script>

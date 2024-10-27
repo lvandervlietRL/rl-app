@@ -1,4 +1,4 @@
-<script>
+// post_new_dashboard.js
 document.addEventListener('DOMContentLoaded', () => {
     // Part 1: Success Modal Creation
     const successModal = document.createElement('div');
@@ -93,4 +93,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Button with class "create-dashboard-button" not found.');
     }
 });
-</script>

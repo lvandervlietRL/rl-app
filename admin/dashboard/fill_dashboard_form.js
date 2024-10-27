@@ -1,4 +1,4 @@
-<script>
+// fill_dashboard_form.js
 let dashButtonName = ''; // Declare the variable globally
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -70,4 +70,3 @@ document.addEventListener('DOMContentLoaded', () => {
             }
     }
 });
-</script>

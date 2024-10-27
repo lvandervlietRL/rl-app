@@ -1,4 +1,3 @@
-<script>
 // patch_dashboard.js
 document.addEventListener('DOMContentLoaded', () => {
     // Create a modal for success notification
@@ -139,4 +138,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-</script>

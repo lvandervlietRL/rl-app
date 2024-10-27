@@ -1,4 +1,3 @@
-<script>
 // load-active-tab.js
 // Global function to activate the tab based on the stored value
 function activateTab() {
@@ -28,4 +27,3 @@ function activateTab() {
 
 // Call activateTab on page load
 window.addEventListener('load', activateTab);
-</script>

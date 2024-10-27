@@ -1,4 +1,4 @@
-<script>
+// post_new_workspace.js
 document.addEventListener('DOMContentLoaded', () => {
     // Part 1: Update Dashboard Table
     const updateButton = document.querySelector('.new-dashboards-button');
@@ -188,4 +188,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Button with class "create-workspace-button" not found.');
     }
 });
-</script>

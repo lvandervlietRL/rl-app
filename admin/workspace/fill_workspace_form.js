@@ -1,4 +1,4 @@
-<script>
+// fill_workspace_form.js
 let buttonName = ''; // Declare the variable globally
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -147,4 +147,3 @@ document.addEventListener('DOMContentLoaded', () => {
         workspaceDashboardsElement.appendChild(table);
     }
 });
-</script>

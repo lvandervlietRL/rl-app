@@ -1,4 +1,4 @@
-<script>
+// delete_dashboards.js
 document.addEventListener('DOMContentLoaded', () => {
     // Create a modal for success notification
     const successModal = document.createElement('div');
@@ -83,4 +83,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Button with class "delete-dash-button" not found.');
     }
 });
-</script>
