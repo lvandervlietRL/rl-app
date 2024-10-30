@@ -9,16 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
             showLoadingOverlay();
 
             if (!firstWebhookData) {
-                console.error('First webhook data not available.');
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = 'First webhook data not available.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
             const matchingItemIndex = firstWebhookData.items.findIndex(item => item.fieldData.name === buttonName);
 
             if (matchingItemIndex === -1) {
-                console.error(`No matching item found for button name: ${buttonName}`);
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = `No matching item found for button name: ${buttonName}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
@@ -37,22 +39,27 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                    hideLoadingOverlay(); // Hide loading overlay
+                    const errorMessage = `HTTP error! Status: ${response.status}`;
+                    showFailureModal(errorMessage);
+                    hideLoadingOverlay(); 
+                    throw new Error(errorMessage);
                 }
                 return response.json();
             })
             .then(data => {
                 console.log('Response from webhook:', data);
-                showSuccessModal(); // Show success modal
-                hideLoadingOverlay(); // Hide loading overlay
+                showSuccessModal(); // Show global success modal
+                hideLoadingOverlay();
             })
             .catch(error => {
-                console.error('Error sending data to the webhook:', error);
-                hideLoadingOverlay(); // Hide loading overlay on error
+                const errorMessage = `Error sending data to the webhook: ${error}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
             });
         });
     } else {
-        console.error('Button with class "delete-workspace-button" not found.');
+        const errorMessage = 'Button with class "delete-workspace-button" not found.';
+        showFailureModal(errorMessage);
+        hideLoadingOverlay();
     }
 });

@@ -7,14 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', function () {
 
             if (!secondWebhookData) {
-                console.error('Second webhook data not available.');
+                const errorMessage = 'Second webhook data not available.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
             const matchingItemIndex = secondWebhookData.findIndex(item => item.fieldData.name === dashButtonName);
 
             if (matchingItemIndex === -1) {
-                console.error(`No matching item found for button name: ${dashButtonName}`);
+                const errorMessage = `No matching item found for button name: ${dashButtonName}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
@@ -39,13 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Response from webhook:', data);
-                showSuccessModal(); // Show success modal
+                showSuccessModal(); // Show global success modal
+                hideLoadingOverlay();
             })
             .catch(error => {
-                console.error('Error sending data to the webhook:', error);
+                const errorMessage = `Error sending data to the webhook: ${error}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
             });
         });
     } else {
-        console.error('Button with class "delete-dash-button" not found.');
+        const errorMessage = 'Button with class "delete-workspace-button" not found.';
+        showFailureModal(errorMessage);
+        hideLoadingOverlay();
     }
 });
