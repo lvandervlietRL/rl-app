@@ -101,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
             showLoadingOverlay();
 
             if (!firstWebhookData) {
-                console.error('First webhook data not available.');
-                showFailureModal();
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = 'First webhook data not available.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
@@ -113,9 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const workspaceRoleElement = document.querySelector('.new-workspace-role');
 
             if (!workspaceNameElement || !workspaceSlugElement || !workspaceDescriptionElement || !workspaceRoleElement) {
-                console.error('Error: Required workspace fields not found.');
-                showFailureModal();
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = 'Error: Required workspace fields not found.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
@@ -149,26 +149,27 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                    showFailureModal();
-                    hideLoadingOverlay(); // Hide loading overlay
+                    const errorMessage = `HTTP error! Status: ${response.status}`;
+                    showFailureModal(errorMessage);
+                    hideLoadingOverlay(); 
+                    throw new Error(errorMessage);
                 }
                 return response.json();
             })
             .then(data => {
                 console.log('Response from webhook:', data);
                 showSuccessModal(); // Show global success modal
-                hideLoadingOverlay(); // Hide loading overlay
+                hideLoadingOverlay(); 
             })
             .catch(error => {
-                console.error('Error sending data to the webhook:', error);
-                showFailureModal();
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = `Error sending data to the webhook: ${error}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
             });
         });
     } else {
-        console.error('Button with class "create-workspace-button" not found.');
-        showFailureModal();
-        hideLoadingOverlay(); // Hide loading overlay
+        const errorMessage = 'Button with class "create-workspace-button" not found.';
+        showFailureModal(errorMessage);
+        hideLoadingOverlay();
     }
 });

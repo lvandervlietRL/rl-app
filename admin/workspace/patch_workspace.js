@@ -82,25 +82,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) {
                     const errorMessage = `HTTP error! Status: ${response.status}`;
                     showFailureModal(errorMessage);
-                    hideLoadingOverlay(); // Hide loading overlay
-                    throw new Error(errorMessage); // Throw error to be caught in catch block
+                    hideLoadingOverlay();
+                    throw new Error(errorMessage);
                 }
                 return response.json();
             })
             .then(data => {
                 console.log('Response from webhook:', data);
                 showSuccessModal(); // Show global success modal
-                hideLoadingOverlay(); // Hide loading overlay
+                hideLoadingOverlay();
             })
             .catch(error => {
                 const errorMessage = `Error sending data to the webhook: ${error}`;
                 showFailureModal(errorMessage);
-                hideLoadingOverlay(); // Hide loading overlay on error
+                hideLoadingOverlay();
             });
         });
     } else {
-        console.error('Button with class "workspace-save-button" not found.');
-        showFailureModal('Button with class "workspace-save-button" not found.');
+        const errorMessage = 'Button with class "workspace-save-button" not found.';
+        showFailureModal(errorMessage);
         hideLoadingOverlay();
     }
 });

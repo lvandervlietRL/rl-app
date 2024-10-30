@@ -1,2 +1,3 @@
 add page loader for all scripts
 add error messages for all scripts
+rights manager in admin menu

@@ -5,8 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (createDashboardButton) {
         createDashboardButton.addEventListener('click', function () {
+            // Show loading overlay
+            showLoadingOverlay();
+
             if (!firstWebhookData) {
-                console.error('First webhook data not available.');
+                const errorMessage = 'First webhook data not available.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
@@ -16,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const dashboardLinkElement = document.querySelector('.new-dashboard-link');
 
             if (!dashboardNameElement || !dashboardSlugElement || !dashboardDescriptionElement || !dashboardLinkElement) {
-                console.error('Error: Required dashboard fields not found.');
+                const errorMessage = 'Error: Required dashboard fields not found.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
@@ -49,19 +56,27 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    const errorMessage = `HTTP error! Status: ${response.status}`;
+                    showFailureModal(errorMessage);
+                    hideLoadingOverlay(); 
+                    throw new Error(errorMessage);
                 }
                 return response.json();
             })
             .then(data => {
                 console.log('Response from webhook:', data);
-                showSuccessModal();
+                showSuccessModal(); // Show global success modal
+                hideLoadingOverlay();
             })
             .catch(error => {
-                console.error('Error sending data to the webhook:', error);
+                const errorMessage = `Error sending data to the webhook: ${error}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
             });
         });
     } else {
-        console.error('Button with class "create-dashboard-button" not found.');
+        const errorMessage = 'Button with class "create-dashboard-button" not found.';
+        showFailureModal(errorMessage);
+        hideLoadingOverlay();
     }
 });

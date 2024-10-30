@@ -9,16 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
             showLoadingOverlay();
 
             if (!secondWebhookData) {
-                console.error('Second webhook data not available.');
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = 'Second webhook data not available.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
             const matchingItemIndex = secondWebhookData.findIndex(item => item.fieldData.name === dashButtonName);
 
             if (matchingItemIndex === -1) {
-                console.error(`No matching item found for button name: ${dashButtonName}`);
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = `No matching item found for button name: ${dashButtonName}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
 
@@ -26,32 +28,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const dashboardNameElement = document.querySelector('.dashboard-name');
             if (!dashboardNameElement) {
-                console.error('Error: Dashboard name element not found.');
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = 'Error: Dashboard name element not found.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
             const dashboardName = dashboardNameElement.value.trim();
 
             const dashboardSlugElement = document.querySelector('.dashboard-slug');
             if (!dashboardSlugElement) {
-                console.error('Error: Dashboard slug element not found.');
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = 'Error: Dashboard slug element not found.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
             const dashboardSlug = dashboardSlugElement.value.trim();
 
             const dashboardDescriptionElement = document.querySelector('.dashboard-description');
             if (!dashboardDescriptionElement) {
-                console.error('Error: Dashboard description element not found.');
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = 'Error: Dashboard description element not found.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
             const dashboardDescription = dashboardDescriptionElement.value.trim();
 
             const dashboardLinkElement = document.querySelector('.dashboard-link');
             if (!dashboardLinkElement) {
-                console.error('Error: Dashboard link element not found.');
-                hideLoadingOverlay(); // Hide loading overlay
+                const errorMessage = 'Error: Dashboard link element not found.';
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
                 return;
             }
             const dashboardLink = dashboardLinkElement.value.trim();
@@ -77,18 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    const errorMessage = `HTTP error! Status: ${response.status}`;
+                    showFailureModal(errorMessage);
+                    hideLoadingOverlay();
+                    throw new Error(errorMessage);
                 }
                 return response.json();
             })
             .then(data => {
                 console.log('Response from webhook:', data);
                 showSuccessModal(); // Show success modal
-                hideLoadingOverlay(); // Hide loading overlay
+                hideLoadingOverlay();
             })
             .catch(error => {
-                console.error('Error sending data to the webhook:', error);
-                hideLoadingOverlay(); // Hide loading overlay on error
+                const errorMessage = `Error sending data to the webhook: ${error}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
             });
         });
     }
