@@ -1,6 +1,5 @@
-// patch_workspace.js
 document.addEventListener('DOMContentLoaded', () => {
-    // Select the button with class 'workspace-save-button'
+    // Ensure utility.js is loaded and accessible
     const button = document.querySelector('.workspace-save-button'); 
 
     if (button) {
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!firstWebhookData) {
                 showFailureModal('First webhook data not available.');
-                hideLoadingOverlay(); // Hide loading overlay
+                hideLoadingOverlay(); 
                 return;
             }
 
@@ -18,40 +17,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (matchingItemIndex === -1) {
                 showFailureModal(`No matching item found for button name: ${buttonName}`);
-                hideLoadingOverlay(); // Hide loading overlay
+                hideLoadingOverlay();
                 return;
             }
 
             const itemId = firstWebhookData.items[matchingItemIndex].id;
 
-            // Utility function to check element existence and value
-            const checkElementValue = (selector, errorMessage) => {
-                const element = document.querySelector(selector);
-                if (!element || !element.value.trim()) {
-                    showFailureModal(errorMessage);
-                    hideLoadingOverlay(); // Hide loading overlay
-                    return null; // Indicate failure
-                }
-                return element.value.trim(); // Return trimmed value if valid
-            };
-
-            // Check values for each required field
+            // Use checkElementValue from utility.js
             const workspaceName = checkElementValue('.workspace-name', 'Error: Workspace name cannot be empty.');
-            if (workspaceName === null) return; // Exit if check failed
+            if (workspaceName === null) return; 
 
             const workspaceSlug = checkElementValue('.workspace-slug', 'Error: Workspace slug cannot be empty.');
-            if (workspaceSlug === null) return; // Exit if check failed
+            if (workspaceSlug === null) return;
 
             const workspaceDescription = checkElementValue('.workspace-description', 'Error: Workspace description cannot be empty.');
-            if (workspaceDescription === null) return; // Exit if check failed
+            if (workspaceDescription === null) return;
 
             const workspaceRole = checkElementValue('.workspace-role', 'Error: Workspace role cannot be empty.');
-            if (workspaceRole === null) return; // Exit if check failed
+            if (workspaceRole === null) return;
 
             const dashboardTableRows = document.querySelectorAll('.admin-table tr');
             const dashboards = [];
             dashboardTableRows.forEach((row, index) => {
-                if (index === 0) return; // Skip header row
+                if (index === 0) return;
                 const idCell = row.querySelector('td:first-child');
                 if (idCell) {
                     dashboards.push(idCell.textContent.trim());
@@ -89,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Response from webhook:', data);
-                showSuccessModal(); // Show global success modal
+                showSuccessModal(); 
                 hideLoadingOverlay();
             })
             .catch(error => {

@@ -1,11 +1,8 @@
-// patch_dashboard.js
 document.addEventListener('DOMContentLoaded', () => {
-    // Select the button with class 'dash-save-button'
     const button = document.querySelector('.dash-save-button'); 
 
     if (button) {
         button.addEventListener('click', function () {
-            // Show loading overlay
             showLoadingOverlay();
 
             if (!secondWebhookData) {
@@ -26,41 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const itemId = secondWebhookData[matchingItemIndex].id;
 
-            const dashboardNameElement = document.querySelector('.dashboard-name');
-            if (!dashboardNameElement) {
-                const errorMessage = 'Error: Dashboard name element not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay();
-                return;
-            }
-            const dashboardName = dashboardNameElement.value.trim();
+            // Use checkElementValue from utility.js
+            const dashboardName = checkElementValue('.dashboard-name', 'Error: Dashboard name cannot be empty.');
+            if (dashboardName === null) return;
 
-            const dashboardSlugElement = document.querySelector('.dashboard-slug');
-            if (!dashboardSlugElement) {
-                const errorMessage = 'Error: Dashboard slug element not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay();
-                return;
-            }
-            const dashboardSlug = dashboardSlugElement.value.trim();
+            const dashboardSlug = checkElementValue('.dashboard-slug', 'Error: Dashboard slug cannot be empty.');
+            if (dashboardSlug === null) return;
 
-            const dashboardDescriptionElement = document.querySelector('.dashboard-description');
-            if (!dashboardDescriptionElement) {
-                const errorMessage = 'Error: Dashboard description element not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay();
-                return;
-            }
-            const dashboardDescription = dashboardDescriptionElement.value.trim();
+            const dashboardDescription = checkElementValue('.dashboard-description', 'Error: Dashboard description cannot be empty.');
+            if (dashboardDescription === null) return;
 
-            const dashboardLinkElement = document.querySelector('.dashboard-link');
-            if (!dashboardLinkElement) {
-                const errorMessage = 'Error: Dashboard link element not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay();
-                return;
-            }
-            const dashboardLink = dashboardLinkElement.value.trim();
+            const dashboardLink = checkElementValue('.dashboard-link', 'Error: Dashboard link cannot be empty.');
+            if (dashboardLink === null) return;
 
             const payload = {
                 id: itemId,
@@ -92,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Response from webhook:', data);
-                showSuccessModal(); // Show success modal
+                showSuccessModal(); 
                 hideLoadingOverlay();
             })
             .catch(error => {
