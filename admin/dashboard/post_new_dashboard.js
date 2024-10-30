@@ -15,22 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const dashboardNameElement = document.querySelector('.new-dashboard-name');
-            const dashboardSlugElement = document.querySelector('.new-dashboard-slug');
-            const dashboardDescriptionElement = document.querySelector('.new-dashboard-description');
-            const dashboardLinkElement = document.querySelector('.new-dashboard-link');
+            // Use checkElementValue utility function from utility.js
+            const dashboardName = checkElementValue('.new-dashboard-name', 'Error: Dashboard name cannot be empty.');
+            if (dashboardName === null) return;
 
-            if (!dashboardNameElement || !dashboardSlugElement || !dashboardDescriptionElement || !dashboardLinkElement) {
-                const errorMessage = 'Error: Required dashboard fields not found.';
-                showFailureModal(errorMessage);
-                hideLoadingOverlay();
-                return;
-            }
+            const dashboardSlug = checkElementValue('.new-dashboard-slug', 'Error: Dashboard slug cannot be empty.');
+            if (dashboardSlug === null) return;
 
-            const dashboardName = dashboardNameElement.value.trim();
-            const dashboardSlug = dashboardSlugElement.value.trim();
-            const dashboardDescription = dashboardDescriptionElement.value.trim();
-            const dashboardLink = dashboardLinkElement.value.trim();
+            const dashboardDescription = checkElementValue('.new-dashboard-description', 'Error: Dashboard description cannot be empty.');
+            if (dashboardDescription === null) return;
+
+            const dashboardLink = checkElementValue('.new-dashboard-link', 'Error: Dashboard link cannot be empty.');
+            if (dashboardLink === null) return;
 
             const activeTab = document.querySelector('.w-tab-pane.w--tab-active');
             const dashboardTableRows = activeTab.querySelectorAll('.admin-table tr');
@@ -58,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) {
                     const errorMessage = `HTTP error! Status: ${response.status}`;
                     showFailureModal(errorMessage);
-                    hideLoadingOverlay(); 
+                    hideLoadingOverlay();
                     throw new Error(errorMessage);
                 }
                 return response.json();
