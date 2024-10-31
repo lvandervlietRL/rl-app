@@ -1,3 +1,5 @@
+// get_members_data.js
+
 let memberData = null;
 
 // Declare the global function
@@ -11,7 +13,7 @@ function fetchMemberData() {
         body: JSON.stringify({})
     })
     .then(response => {
-        console.log('Full response (first webhook):', response);
+        console.log('Full response:', response);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -22,7 +24,6 @@ function fetchMemberData() {
         memberData = data;
     })
     .catch(error => console.error('Error fetching data:', error))
-    .finally(() => hideLoadingOverlay()); // Hide spinner after fetch is complete or error occurs
 }
 
 // Trigger the fetch function when 'get-members-button' is clicked
