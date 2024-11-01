@@ -70,7 +70,9 @@ function populateMembersTable(members) {
 
         // Plan cell
         const planConnectionsCell = document.createElement('td');
-        planConnectionsCell.textContent = member.planConnections ? member.planConnections.join(', ') : 'N/A';
+        planConnectionsCell.textContent = member.planConnections 
+            ? member.planConnections.map(connection => connection.planName).join(', ') 
+            : 'N/A';
         row.appendChild(planConnectionsCell);
 
         // Custom fields cells (first name, last name, phone, occupation)
