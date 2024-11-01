@@ -1,5 +1,3 @@
-// get_members_data.js
-
 let memberData = null;
 
 // Function to fetch member data and populate table
@@ -42,6 +40,7 @@ function populateMembersTable(members) {
 
     // Create the table and header row
     const table = document.createElement('table');
+    table.id = 'members-data-table';
     const headerRow = document.createElement('tr');
     ['ID', 'Email', 'Created At', 'First Name', 'Last Name', 'Phone', 'Occupation'].forEach(headerText => {
         const header = document.createElement('th');
@@ -97,14 +96,37 @@ function populateMembersTable(members) {
     tableContainer.appendChild(table);
 }
 
-// Trigger fetch on button click
+// Function to filter table based on search input
+function filterTable() {
+    const filter = document.getElementById('search-input').value.toLowerCase();
+    const table = document.getElementById('members-data-table');
+    const rows = table.getElementsByTagName('tr');
+
+    // Loop through all table rows (skipping the header row)
+    for (let i = 1; i < rows.length; i++) {
+        let row = rows[i];
+        let rowContainsFilter = Array.from(row.cells).some(cell =>
+            cell.textContent.toLowerCase().includes(filter)
+        );
+        
+        // Show or hide the row based on the search
+        row.style.display = rowContainsFilter ? '' : 'none';
+    }
+}
+
+// Trigger fetch on button click and add search functionality
 document.addEventListener('DOMContentLoaded', () => {
     const getMembersButton = document.querySelector('.get-members-button');
-    
+    const searchInput = document.getElementById('search-input');
+
     if (getMembersButton) {
         getMembersButton.addEventListener('click', fetchMemberData);
     } else {
         showFailureModal('Button with class "get-members-button" not found.');
         hideLoadingOverlay();
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('keyup', filterTable); // Add search filtering
     }
 });
