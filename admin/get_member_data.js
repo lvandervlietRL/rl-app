@@ -42,7 +42,7 @@ function populateMembersTable(members) {
     const table = document.createElement('table');
     table.id = 'members-data-table';
     const headerRow = document.createElement('tr');
-    ['ID', 'Email', 'Created At', 'First Name', 'Last Name', 'Phone', 'Occupation'].forEach(headerText => {
+    ['ID', 'Email', 'Created At', 'Plans', 'First Name', 'Last Name', 'Phone', 'Occupation'].forEach(headerText => {
         const header = document.createElement('th');
         header.textContent = headerText;
         headerRow.appendChild(header);
@@ -67,6 +67,11 @@ function populateMembersTable(members) {
         const createdAtCell = document.createElement('td');
         createdAtCell.textContent = new Date(member.createdAt).toLocaleDateString();
         row.appendChild(createdAtCell);
+
+        // Plan cell
+        const planConnectionsCell = document.createElement('td');
+        planConnectionsCell.textContent = member.planConnections ? member.planConnections.join(', ') : 'N/A';
+        row.appendChild(planConnectionsCell);
 
         // Custom fields cells (first name, last name, phone, occupation)
         const { 'first-name': firstName, 'last-name': lastName, phone, occupation } = member.customFields;
