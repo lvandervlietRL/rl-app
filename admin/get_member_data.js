@@ -116,12 +116,12 @@ function showEditModal(member) {
     const modal = document.getElementById('edit-member-modal');
     if (modal) {
         // Populate modal fields with member data (customize based on your modal structure)
-        document.getElementById('modal-member-id').textContent = member.id;
-        document.getElementById('modal-member-email').value = member.auth.email;
-        document.getElementById('modal-member-first-name').value = member.customFields['first-name'] || '';
-        document.getElementById('modal-member-last-name').value = member.customFields['last-name'] || '';
-        document.getElementById('modal-member-phone').value = member.customFields.phone || '';
-        document.getElementById('modal-member-occupation').value = member.customFields.occupation || '';
+        // document.getElementById('modal-member-id').textContent = member.id;
+        // document.getElementById('modal-member-email').value = member.auth.email;
+        // document.getElementById('modal-member-first-name').value = member.customFields['first-name'] || '';
+        // document.getElementById('modal-member-last-name').value = member.customFields['last-name'] || '';
+        // document.getElementById('modal-member-phone').value = member.customFields.phone || '';
+        // document.getElementById('modal-member-occupation').value = member.customFields.occupation || '';
         
         // Display the modal
         modal.style.display = 'block';
