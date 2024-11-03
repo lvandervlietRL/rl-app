@@ -42,7 +42,7 @@ function populateMembersTable(members) {
     const table = document.createElement('table');
     table.id = 'members-data-table';
     const headerRow = document.createElement('tr');
-    ['ID', 'Email', 'Created At', 'Plans', 'First Name', 'Last Name', 'Phone', 'Occupation'].forEach(headerText => {
+    ['ID', 'Email', 'Created At', 'Plans', 'First Name', 'Last Name', 'Phone', 'Occupation', 'Actions'].forEach(headerText => {
         const header = document.createElement('th');
         header.textContent = headerText;
         headerRow.appendChild(header);
@@ -94,6 +94,14 @@ function populateMembersTable(members) {
         occupationCell.textContent = occupation || 'N/A';
         row.appendChild(occupationCell);
 
+        // Edit button cell
+        const editButtonCell = document.createElement('td');
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', () => showEditModal(member));
+        editButtonCell.appendChild(editButton);
+        row.appendChild(editButtonCell);
+
         // Append the row to the table
         table.appendChild(row);
     });
@@ -102,6 +110,40 @@ function populateMembersTable(members) {
     tableContainer.innerHTML = '';
     tableContainer.appendChild(table);
 }
+
+// Function to show the edit modal and populate it with member data
+function showEditModal(member) {
+    const modal = document.getElementById('edit-member-modal');
+    if (modal) {
+        // Populate modal fields with member data (customize based on your modal structure)
+        document.getElementById('modal-member-id').textContent = member.id;
+        document.getElementById('modal-member-email').value = member.auth.email;
+        document.getElementById('modal-member-first-name').value = member.customFields['first-name'] || '';
+        document.getElementById('modal-member-last-name').value = member.customFields['last-name'] || '';
+        document.getElementById('modal-member-phone').value = member.customFields.phone || '';
+        document.getElementById('modal-member-occupation').value = member.customFields.occupation || '';
+        
+        // Display the modal
+        modal.style.display = 'block';
+    } else {
+        console.error('Edit modal with ID "edit-member-modal" not found');
+    }
+}
+
+// Event listener to close the edit modal
+document.addEventListener('DOMContentLoaded', () => {
+    const closeModalButton = document.getElementById('close-member-editor');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
+            const modal = document.getElementById('edit-member-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    } else {
+        console.error('Button with ID "close-member-editor" not found');
+    }
+});
 
 // Function to filter table based on search input
 function filterTable() {
