@@ -115,28 +115,61 @@ function populateMembersTable(members) {
 function showEditModal(member) {
     const modal = document.getElementById('edit-member-modal');
     if (modal) {
-        // Populate modal fields with member data (customize based on your modal structure)
-        // document.getElementById('member-id').textContent = member.id;
-        // document.getElementById('member-created').textContent = member.id;
-        // document.getElementById('member-mail').value = member.auth.email;
-        // document.getElementById('member-first-name').value = member.customFields['first-name'] || '';
-        // document.getElementById('member-last-name').value = member.customFields['last-name'] || '';
-        // document.getElementById('modal-member-phone').value = member.customFields.phone || '';
-        // document.getElementById('modal-member-occupation').value = member.customFields.occupation || '';
-        
         // Display the modal
         modal.style.display = 'block';
 
-        const workspaceNameInput = document.querySelector('.workspace-name'); 
-        const name = item.fieldData.name || 'No name available';
+        // Fetch modal input elements
+        const memberIdInput = document.getElementById('member-id');
+        const memberCreatedInput = document.getElementById('member-created');
+        const memberMailInput = document.getElementById('member-mail');
+        const memberFirstNameInput = document.getElementById('member-first-name');
+        const memberLastNameInput = document.getElementById('member-last-name');
+        const memberPhoneInput = document.getElementById('member-phone');
+        const memberOccupationInput = document.getElementById('member-occupation');
 
-        if (workspaceNameInput) {
-            workspaceNameInput.value = name; // Set the name input field's value
+        // Populate modal fields with member data, or display an error message in the console if a field is missing
+        if (memberIdInput) {
+            memberIdInput.value = member.id || 'No ID available';
         } else {
-            workspaceDashboardsText.textContent = 'No dashboards available'; // If no dashboards, show this message
+            console.error('Element with ID "member-id" not found');
         }
 
-        
+        if (memberCreatedInput) {
+            memberCreatedInput.value = member.createdAt || 'No creation date available';
+        } else {
+            console.error('Element with ID "member-created" not found');
+        }
+
+        if (memberMailInput) {
+            memberMailInput.value = member.auth.email || 'No email available';
+        } else {
+            console.error('Element with ID "member-mail" not found');
+        }
+
+        if (memberFirstNameInput) {
+            memberFirstNameInput.value = member.customFields['first-name'] || 'No first name available';
+        } else {
+            console.error('Element with ID "member-first-name" not found');
+        }
+
+        if (memberLastNameInput) {
+            memberLastNameInput.value = member.customFields['last-name'] || 'No last name available';
+        } else {
+            console.error('Element with ID "member-last-name" not found');
+        }
+
+        if (memberPhoneInput) {
+            memberPhoneInput.value = member.customFields.phone || 'No phone number available';
+        } else {
+            console.error('Element with ID "member-phone" not found');
+        }
+
+        if (memberOccupationInput) {
+            memberOccupationInput.value = member.customFields.occupation || 'No occupation available';
+        } else {
+            console.error('Element with ID "member-occupation" not found');
+        }
+
     } else {
         console.error('Edit modal with ID "edit-member-modal" not found');
     }
