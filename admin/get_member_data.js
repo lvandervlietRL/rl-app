@@ -118,6 +118,9 @@ function populateMembersTable(members) {
     // Clear any existing content and add the table to the container
     tableContainer.innerHTML = '';
     tableContainer.appendChild(table);
+
+    console.log(memberId);
+    console.log(memberItem);
 }
 
 // Function to show the edit modal and populate it with member data
@@ -135,6 +138,8 @@ function showEditModal(memberItem) {
         const memberLastNameInput = document.getElementById('member-last-name');
         const memberPhoneInput = document.getElementById('member-phone');
         const memberOccupationInput = document.getElementById('member-occupation');
+
+        console.log(memberItem.id);
 
         // Populate modal fields with member data, or display an error message in the console if a field is missing
         if (memberIdInput) {
