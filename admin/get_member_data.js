@@ -101,7 +101,7 @@ function populateMembersTable(members) {
         editButton.setAttribute('data-id', member.id); // Set data-id attribute with member.id
         editButton.addEventListener('click', () => {
             const memberId = editButton.getAttribute('data-id');
-            const memberItem = memberData.find(item => item.id === memberId);
+            const memberItem = memberData.data.find(item => item.id === memberId);
             if (memberItem) {
                 showEditModal(memberItem); // Pass the found member to the modal function
             } else {
