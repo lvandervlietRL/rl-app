@@ -138,45 +138,47 @@ function showEditModal(memberItem) {
         const memberPhoneInput = document.getElementById('member-phone');
         const memberOccupationInput = document.getElementById('member-occupation');
 
+        const name = memberItem.id || 'No name available';
+
         // Populate modal fields with member data, or display an error message in the console if a field is missing
         if (memberIdInput) {
-            memberIdInput.value = memberItem.id || 'No ID available';
+            memberIdInput.textContent = memberItem.id || 'No ID available';
         } else {
             console.error('Element with ID "member-id" not found');
         }
 
         if (memberCreatedInput) {
-            memberCreatedInput.value = memberItem.createdAt || 'No creation date available';
+            memberCreatedInput.textContent = memberItem.createdAt || 'No creation date available';
         } else {
             console.error('Element with ID "member-created" not found');
         }
 
         if (memberMailInput) {
-            memberMailInput.value = memberItem.auth.email || 'No email available';
+            memberMailInput.textContent = memberItem.auth.email || 'No email available';
         } else {
             console.error('Element with ID "member-mail" not found');
         }
 
         if (memberFirstNameInput) {
-            memberFirstNameInput.value = memberItem.customFields['first-name'] || 'No first name available';
+            memberFirstNameInput.textContent = memberItem.customFields['first-name'] || 'No first name available';
         } else {
             console.error('Element with ID "member-first-name" not found');
         }
 
         if (memberLastNameInput) {
-            memberLastNameInput.value = memberItem.customFields['last-name'] || 'No last name available';
+            memberLastNameInput.textContent = memberItem.customFields['last-name'] || 'No last name available';
         } else {
             console.error('Element with ID "member-last-name" not found');
         }
 
         if (memberPhoneInput) {
-            memberPhoneInput.value = memberItem.customFields.phone || 'No phone number available';
+            memberPhoneInput.textContent = memberItem.customFields.phone || 'No phone number available';
         } else {
             console.error('Element with ID "member-phone" not found');
         }
 
         if (memberOccupationInput) {
-            memberOccupationInput.value = memberItem.customFields.occupation || 'No occupation available';
+            memberOccupationInput.textContent = memberItem.customFields.occupation || 'No occupation available';
         } else {
             console.error('Element with ID "member-occupation" not found');
         }
