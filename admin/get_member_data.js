@@ -116,16 +116,27 @@ function showEditModal(member) {
     const modal = document.getElementById('edit-member-modal');
     if (modal) {
         // Populate modal fields with member data (customize based on your modal structure)
-        document.getElementById('member-id').textContent = member.id;
-        document.getElementById('member-created').textContent = member.id;
-        document.getElementById('member-mail').value = member.auth.email;
-        document.getElementById('member-first-name').value = member.customFields['first-name'] || '';
-        document.getElementById('member-last-name').value = member.customFields['last-name'] || '';
-        document.getElementById('modal-member-phone').value = member.customFields.phone || '';
-        document.getElementById('modal-member-occupation').value = member.customFields.occupation || '';
+        // document.getElementById('member-id').textContent = member.id;
+        // document.getElementById('member-created').textContent = member.id;
+        // document.getElementById('member-mail').value = member.auth.email;
+        // document.getElementById('member-first-name').value = member.customFields['first-name'] || '';
+        // document.getElementById('member-last-name').value = member.customFields['last-name'] || '';
+        // document.getElementById('modal-member-phone').value = member.customFields.phone || '';
+        // document.getElementById('modal-member-occupation').value = member.customFields.occupation || '';
         
         // Display the modal
         modal.style.display = 'block';
+
+        const workspaceNameInput = document.querySelector('.workspace-name'); 
+        const name = item.fieldData.name || 'No name available';
+
+        if (workspaceNameInput) {
+            workspaceNameInput.value = name; // Set the name input field's value
+        } else {
+            workspaceDashboardsText.textContent = 'No dashboards available'; // If no dashboards, show this message
+        }
+
+        
     } else {
         console.error('Edit modal with ID "edit-member-modal" not found');
     }
