@@ -101,9 +101,7 @@ function populateMembersTable(members) {
         editButton.setAttribute('data-id', member.id); // Set data-id attribute with member.id
         editButton.addEventListener('click', () => {
             const memberId = editButton.getAttribute('data-id');
-            console.log(memberId);
             const memberItem = memberData.data.find(item => item.id === memberId);
-            console.log(memberItem);
             if (memberItem) {
                 showEditModal(memberItem); // Pass the found member to the modal function
             } else {
@@ -141,14 +139,12 @@ function showEditModal(memberItem) {
         // Populate modal fields with member data, or display an error message in the console if a field is missing
         if (memberIdInput) {
             memberIdInput.textContent = memberItem.id || 'No ID available';
-            console.log(memberItem.id);
         } else {
             console.error('Element with ID "member-id" not found');
         }
 
         if (memberCreatedInput) {
             memberCreatedInput.textContent = memberItem.createdAt || 'No creation date available';
-            console.log(memberItem.createdAt);
         } else {
             console.error('Element with ID "member-created" not found');
         }
