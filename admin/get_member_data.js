@@ -138,8 +138,6 @@ function showEditModal(memberItem) {
         const memberPhoneInput = document.getElementById('member-phone');
         const memberOccupationInput = document.getElementById('member-occupation');
 
-        const name = memberItem.id || 'No name available';
-
         // Populate modal fields with member data, or display an error message in the console if a field is missing
         if (memberIdInput) {
             memberIdInput.textContent = memberItem.id || 'No ID available';
