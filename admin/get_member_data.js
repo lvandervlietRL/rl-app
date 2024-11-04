@@ -98,10 +98,19 @@ function populateMembersTable(members) {
         const editButtonCell = document.createElement('td');
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit';
-        editButton.addEventListener('click', () => showEditModal(member));
+        editButton.setAttribute('data-id', member.id); // Set data-id attribute with member.id
+        editButton.addEventListener('click', () => {
+            const memberId = editButton.getAttribute('data-id');
+            const memberItem = memberData.find(item => item.id === memberId);
+            if (memberItem) {
+                showEditModal(memberItem); // Pass the found member to the modal function
+            } else {
+                console.error('Member data not found for ID:', memberId);
+            }
+        });
         editButtonCell.appendChild(editButton);
         row.appendChild(editButtonCell);
-
+    
         // Append the row to the table
         table.appendChild(row);
     });
@@ -112,7 +121,7 @@ function populateMembersTable(members) {
 }
 
 // Function to show the edit modal and populate it with member data
-function showEditModal(member) {
+function showEditModal(memberItem) {
     const modal = document.getElementById('edit-member-modal');
     if (modal) {
         // Display the modal
@@ -129,43 +138,43 @@ function showEditModal(member) {
 
         // Populate modal fields with member data, or display an error message in the console if a field is missing
         if (memberIdInput) {
-            memberIdInput.value = member.id || 'No ID available';
+            memberIdInput.value = memberItem.id || 'No ID available';
         } else {
             console.error('Element with ID "member-id" not found');
         }
 
         if (memberCreatedInput) {
-            memberCreatedInput.value = member.createdAt || 'No creation date available';
+            memberCreatedInput.value = memberItem.createdAt || 'No creation date available';
         } else {
             console.error('Element with ID "member-created" not found');
         }
 
         if (memberMailInput) {
-            memberMailInput.value = member.auth.email || 'No email available';
+            memberMailInput.value = memberItem.auth.email || 'No email available';
         } else {
             console.error('Element with ID "member-mail" not found');
         }
 
         if (memberFirstNameInput) {
-            memberFirstNameInput.value = member.customFields['first-name'] || 'No first name available';
+            memberFirstNameInput.value = memberItem.customFields['first-name'] || 'No first name available';
         } else {
             console.error('Element with ID "member-first-name" not found');
         }
 
         if (memberLastNameInput) {
-            memberLastNameInput.value = member.customFields['last-name'] || 'No last name available';
+            memberLastNameInput.value = memberItem.customFields['last-name'] || 'No last name available';
         } else {
             console.error('Element with ID "member-last-name" not found');
         }
 
         if (memberPhoneInput) {
-            memberPhoneInput.value = member.customFields.phone || 'No phone number available';
+            memberPhoneInput.value = memberItem.customFields.phone || 'No phone number available';
         } else {
             console.error('Element with ID "member-phone" not found');
         }
 
         if (memberOccupationInput) {
-            memberOccupationInput.value = member.customFields.occupation || 'No occupation available';
+            memberOccupationInput.value = memberItem.customFields.occupation || 'No occupation available';
         } else {
             console.error('Element with ID "member-occupation" not found');
         }
@@ -175,9 +184,12 @@ function showEditModal(member) {
     }
 }
 
-// Event listener to close the edit modal
+// Event listener to close the edit modal and trigger fetch on button click
 document.addEventListener('DOMContentLoaded', () => {
     const closeModalButton = document.getElementById('close-member-editor');
+    const getMembersButton = document.querySelector('.get-members-button');
+    const searchInput = document.getElementById('search-input');
+
     if (closeModalButton) {
         closeModalButton.addEventListener('click', () => {
             const modal = document.getElementById('edit-member-modal');
@@ -188,39 +200,32 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('Button with ID "close-member-editor" not found');
     }
-});
-
-// Function to filter table based on search input
-function filterTable() {
-    const filter = document.getElementById('search-input').value.toLowerCase();
-    const table = document.getElementById('members-data-table');
-    const rows = table.getElementsByTagName('tr');
-
-    // Loop through all table rows (skipping the header row)
-    for (let i = 1; i < rows.length; i++) {
-        let row = rows[i];
-        let rowContainsFilter = Array.from(row.cells).some(cell =>
-            cell.textContent.toLowerCase().includes(filter)
-        );
-        
-        // Show or hide the row based on the search
-        row.style.display = rowContainsFilter ? '' : 'none';
-    }
-}
-
-// Trigger fetch on button click and add search functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const getMembersButton = document.querySelector('.get-members-button');
-    const searchInput = document.getElementById('search-input');
 
     if (getMembersButton) {
         getMembersButton.addEventListener('click', fetchMemberData);
     } else {
-        showFailureModal('Button with class "get-members-button" not found.');
-        hideLoadingOverlay();
+        console.error('Button with class "get-members-button" not found');
     }
 
     if (searchInput) {
-        searchInput.addEventListener('keyup', filterTable); // Add search filtering
+        searchInput.addEventListener('input', filterTable);
+    } else {
+        console.error('Search input with ID "search-input" not found');
     }
 });
+
+// Function to filter the members table based on input
+function filterTable() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const table = document.getElementById('members-data-table');
+    const rows = table.querySelectorAll('tr:not(:first-child)'); // Exclude header row
+
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const match = Array.from(cells).some(cell => {
+            return cell.textContent.toLowerCase().includes(searchTerm);
+        });
+
+        row.style.display = match ? '' : 'none'; // Show or hide row based on match
+    });
+}
