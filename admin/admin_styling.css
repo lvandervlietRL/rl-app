@@ -20,13 +20,12 @@
 
 .admin-table, .members-table {
   width: 100%;
+  border-collapse: separate; /* Allow separate borders for rounded corners */
   border-spacing: 0; /* No extra spacing between cells */
   border-radius: 10px; /* Rounded outer corners */
   overflow: hidden; /* Ensures content respects the rounded corners */
   font-size: 14px;
   text-align: left;
-  background-color: white; /* Background for the table to ensure visibility */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow for visibility */
 }
 
 /* Header row styling */
@@ -39,25 +38,25 @@
 /* Cell padding and borders for each cell */
 .admin-table th, .admin-table td,
 .members-table th, .members-table td {
-  border: 1px solid #cccccc;
+  border: 1px solid #cccccc; /* Visible border color */
   padding: 12px 15px;
 }
 
 /* Alternating row colors */
 .admin-table tbody tr:nth-of-type(even),
 .members-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  background-color: #f3f3f3; /* Light gray for even rows */
 }
 
 .admin-table tbody tr:nth-of-type(odd),
 .members-table tbody tr:nth-of-type(odd) {
-  background-color: white;
+  background-color: white; /* White for odd rows */
 }
 
 /* Last row border for styling consistency */
 .admin-table tbody tr:last-of-type,
 .members-table tbody tr:last-of-type {
-  border-bottom: 2px solid #aaaaaa;
+  border-bottom: 2px solid #aaaaaa; /* Darker border for the last row */
 }
 
 /* Specific column width and centering for certain columns */
