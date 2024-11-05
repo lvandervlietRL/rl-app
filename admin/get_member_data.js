@@ -54,9 +54,9 @@ function populateMembersTable(members) {
         const row = document.createElement('tr');
         
         // ID cell
-        const idCell = document.createElement('td');
-        idCell.textContent = member.id;
-        row.appendChild(idCell);
+        // const idCell = document.createElement('td');
+        // idCell.textContent = member.id;
+        // row.appendChild(idCell);
 
         // Email cell
         const emailCell = document.createElement('td');
@@ -64,9 +64,9 @@ function populateMembersTable(members) {
         row.appendChild(emailCell);
 
         // Created At cell
-        const createdAtCell = document.createElement('td');
-        createdAtCell.textContent = new Date(member.createdAt).toLocaleDateString();
-        row.appendChild(createdAtCell);
+        // const createdAtCell = document.createElement('td');
+        // createdAtCell.textContent = new Date(member.createdAt).toLocaleDateString();
+        // row.appendChild(createdAtCell);
 
         // Plan cell
         const planConnectionsCell = document.createElement('td');
@@ -76,7 +76,8 @@ function populateMembersTable(members) {
         row.appendChild(planConnectionsCell);
 
         // Custom fields cells (first name, last name, phone, occupation)
-        const { 'first-name': firstName, 'last-name': lastName, phone, occupation } = member.customFields;
+        const { 'first-name': firstName, 'last-name': lastName } = member.customFields;
+        // const { 'first-name': firstName, 'last-name': lastName, phone, occupation } = member.customFields;
 
         const firstNameCell = document.createElement('td');
         firstNameCell.textContent = firstName || 'N/A';
@@ -86,13 +87,13 @@ function populateMembersTable(members) {
         lastNameCell.textContent = lastName || 'N/A';
         row.appendChild(lastNameCell);
 
-        const phoneCell = document.createElement('td');
-        phoneCell.textContent = phone || 'N/A';
-        row.appendChild(phoneCell);
+        // const phoneCell = document.createElement('td');
+        // phoneCell.textContent = phone || 'N/A';
+        // row.appendChild(phoneCell);
 
-        const occupationCell = document.createElement('td');
-        occupationCell.textContent = occupation || 'N/A';
-        row.appendChild(occupationCell);
+        // const occupationCell = document.createElement('td');
+        // occupationCell.textContent = occupation || 'N/A';
+        // row.appendChild(occupationCell);
 
         // Edit button cell
         const editButtonCell = document.createElement('td');
