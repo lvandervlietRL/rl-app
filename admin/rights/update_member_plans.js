@@ -1,4 +1,3 @@
-const allPlansDiv = document.querySelector('.all-plans');
 const planSelection = document.querySelector('.plan-selection'); // Ensure you have this element in your HTML
 
 // Get all available plans
@@ -7,8 +6,11 @@ const allPlans = allPlansResponse.data;
 
 // Get current member's plan connections
 const memberResponse = await window.$memberstackDom.getCurrentMember();
-const memberData = memberResponse.data;
-const assignedPlans = memberData.planConnections.map(connection => connection.planId);
+const memberPlans = memberResponse.data;
+const assignedPlans = memberPlans.planConnections.map(connection => connection.planId);
+
+console.log("allPlans")
+console.log("memberPlans")
 
 // Clear existing options in the plan selection
 planSelection.innerHTML = ''; 
