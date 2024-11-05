@@ -123,7 +123,7 @@ function populateMembersTable(members) {
 }
 
 // Function to show the edit modal and populate it with member data
-function showEditModal(memberItem) {
+async function showEditModal(memberItem) {
     const modal = document.getElementById('edit-member-modal');
     if (modal) {
         // Display the modal
@@ -187,34 +187,38 @@ function showEditModal(memberItem) {
             // Clear any existing options
             memberPlanSelection.innerHTML = '';
 
-            // Get all plan IDs and names
-            const allPlansResponse = await window.$memberstackDom.getPlans()
-            const allPlanIds = allPlansResponse.data.map(connection => connection.id);
-            const allPlanNames = allPlansResponse.data.map(connection => connection.name);
+            try {
+                // Get all plan IDs and names
+                const allPlansResponse = await window.$memberstackDom.getPlans();
+                const allPlanIds = allPlansResponse.data.map(connection => connection.id);
+                const allPlanNames = allPlansResponse.data.map(connection => connection.name);
 
-            // Get member's plan IDs
-            const memberPlanIds = memberItem.planConnections.map(connection => connection.planId);
+                // Get member's plan IDs
+                const memberPlanIds = memberItem.planConnections.map(connection => connection.planId);
 
-            // Create checkboxes for each plan
-            allPlanIds.forEach((planId, index) => {
-                const planName = allPlanNames[index];
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = `plan-${planId}`;
-                checkbox.value = planId;
-                
-                // Check the box if the member has the plan
-                checkbox.checked = memberPlanIds.includes(planId);
+                // Create checkboxes for each plan
+                allPlanIds.forEach((planId, index) => {
+                    const planName = allPlanNames[index];
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = `plan-${planId}`;
+                    checkbox.value = planId;
 
-                const label = document.createElement('label');
-                label.htmlFor = `plan-${planId}`;
-                label.textContent = planName;
+                    // Check the box if the member has the plan
+                    checkbox.checked = memberPlanIds.includes(planId);
 
-                // Append the checkbox and label to the plan selection element
-                memberPlanSelection.appendChild(checkbox);
-                memberPlanSelection.appendChild(label);
-                memberPlanSelection.appendChild(document.createElement('br')); // line break for better readability
-            });
+                    const label = document.createElement('label');
+                    label.htmlFor = `plan-${planId}`;
+                    label.textContent = planName;
+
+                    // Append the checkbox and label to the plan selection element
+                    memberPlanSelection.appendChild(checkbox);
+                    memberPlanSelection.appendChild(label);
+                    memberPlanSelection.appendChild(document.createElement('br')); // line break for better readability
+                });
+            } catch (error) {
+                console.error('Error fetching plans:', error);
+            }
         } else {
             console.error('Element with ID "plan-selection" not found');
         }
