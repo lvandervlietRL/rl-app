@@ -137,92 +137,79 @@ async function showEditModal(memberItem) {
         const memberLastNameInput = document.getElementById('member-last-name');
         const memberPhoneInput = document.getElementById('member-phone');
         const memberOccupationInput = document.getElementById('member-occupation');
-        const memberPlanSelection = document.getElementById('plan-selection');
 
-        // Populate modal fields with member data, or display an error message in the console if a field is missing
-        if (memberIdInput) {
-            memberIdInput.textContent = memberItem.id || 'No ID available';
-        } else {
-            console.error('Element with ID "member-id" not found');
+        // Populate modal fields with member data
+        memberIdInput.textContent = memberItem.id || 'No ID available';
+        memberCreatedInput.textContent = memberItem.createdAt || 'No creation date available';
+        memberMailInput.textContent = memberItem.auth.email || 'No email available';
+        memberFirstNameInput.textContent = memberItem.customFields['first-name'] || 'No first name available';
+        memberLastNameInput.textContent = memberItem.customFields['last-name'] || 'No last name available';
+        memberPhoneInput.textContent = memberItem.customFields.phone || 'No phone number available';
+        memberOccupationInput.textContent = memberItem.customFields.occupation || 'No occupation available';
+
+        // Create the plan selection table dynamically
+        const memberPlanTableContainer = document.createElement('div'); // Create a container for the table
+        const memberPlanTable = document.createElement('table'); // Create the table
+        memberPlanTable.id = 'plan-selection'; // Set an ID for the table
+
+        // Create table header
+        const headerRow = document.createElement('tr');
+        const headerNameCell = document.createElement('th');
+        headerNameCell.textContent = 'Plan Name';
+        const headerActionCell = document.createElement('th');
+        headerActionCell.textContent = 'Action';
+        headerRow.appendChild(headerNameCell);
+        headerRow.appendChild(headerActionCell);
+        memberPlanTable.appendChild(headerRow); // Append header row to table
+
+        try {
+            // Get all plan IDs and names
+            const allPlansResponse = await window.$memberstackDom.getPlans();
+            const allPlanIds = allPlansResponse.data.map(connection => connection.id);
+            const allPlanNames = allPlansResponse.data.map(connection => connection.name);
+
+            // Get member's plan IDs
+            const memberPlanIds = memberItem.planConnections.map(connection => connection.planId);
+
+            // Create table rows for each plan
+            allPlanIds.forEach((planId, index) => {
+                const planName = allPlanNames[index];
+                const row = document.createElement('tr');
+
+                // Create plan name cell
+                const nameCell = document.createElement('td');
+                nameCell.textContent = planName;
+                row.appendChild(nameCell);
+
+                // Create button cell
+                const buttonCell = document.createElement('td');
+                const button = document.createElement('button');
+                button.textContent = memberPlanIds.includes(planId) ? 'Assigned' : 'Assign';
+                button.disabled = memberPlanIds.includes(planId); // Disable button if already assigned
+
+                if (!button.disabled) {
+                    button.onclick = function () {
+                        // Call your function to handle assignment here
+                        console.log(`Assigning plan: ${planId}`);
+                        // Your function logic goes here
+                    };
+                } else {
+                    button.style.backgroundColor = '#ccc'; // Grey out the button if assigned
+                }
+
+                buttonCell.appendChild(button);
+                row.appendChild(buttonCell);
+                memberPlanTable.appendChild(row); // Append row to table
+            });
+        } catch (error) {
+            console.error('Error fetching plans:', error);
         }
 
-        if (memberCreatedInput) {
-            memberCreatedInput.textContent = memberItem.createdAt || 'No creation date available';
-        } else {
-            console.error('Element with ID "member-created" not found');
+        // Clear any existing tables and append the new one to the container
+        while (modal.firstChild) {
+            modal.removeChild(modal.firstChild);
         }
-
-        if (memberMailInput) {
-            memberMailInput.textContent = memberItem.auth.email || 'No email available';
-        } else {
-            console.error('Element with ID "member-mail" not found');
-        }
-
-        if (memberFirstNameInput) {
-            memberFirstNameInput.textContent = memberItem.customFields['first-name'] || 'No first name available';
-        } else {
-            console.error('Element with ID "member-first-name" not found');
-        }
-
-        if (memberLastNameInput) {
-            memberLastNameInput.textContent = memberItem.customFields['last-name'] || 'No last name available';
-        } else {
-            console.error('Element with ID "member-last-name" not found');
-        }
-
-        if (memberPhoneInput) {
-            memberPhoneInput.textContent = memberItem.customFields.phone || 'No phone number available';
-        } else {
-            console.error('Element with ID "member-phone" not found');
-        }
-
-        if (memberOccupationInput) {
-            memberOccupationInput.textContent = memberItem.customFields.occupation || 'No occupation available';
-        } else {
-            console.error('Element with ID "member-occupation" not found');
-        }
-
-        // Populate the plan selection with checkboxes
-        if (memberPlanSelection) {
-            // Clear any existing options
-            memberPlanSelection.innerHTML = '';
-
-            try {
-                // Get all plan IDs and names
-                const allPlansResponse = await window.$memberstackDom.getPlans();
-                const allPlanIds = allPlansResponse.data.map(connection => connection.id);
-                const allPlanNames = allPlansResponse.data.map(connection => connection.name);
-
-                // Get member's plan IDs
-                const memberPlanIds = memberItem.planConnections.map(connection => connection.planId);
-
-                // Create checkboxes for each plan
-                allPlanIds.forEach((planId, index) => {
-                    const planName = allPlanNames[index];
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.id = `plan-${planId}`;
-                    checkbox.value = planId;
-
-                    // Check the box if the member has the plan
-                    checkbox.checked = memberPlanIds.includes(planId);
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `plan-${planId}`;
-                    label.textContent = planName;
-
-                    // Append the checkbox and label to the plan selection element
-                    memberPlanSelection.appendChild(checkbox);
-                    memberPlanSelection.appendChild(label);
-                    memberPlanSelection.appendChild(document.createElement('br')); // line break for better readability
-                });
-            } catch (error) {
-                console.error('Error fetching plans:', error);
-            }
-        } else {
-            console.error('Element with ID "plan-selection" not found');
-        }
-
+        modal.appendChild(memberPlanTable); // Append the constructed table to the modal
     } else {
         console.error('Edit modal with ID "edit-member-modal" not found');
     }
