@@ -1,8 +1,8 @@
-let memberData = null;
+let memberData = [];
 
 // Function to fetch member data and populate table
 function fetchMemberData() {
-    showLoadingOverlay(); // Show overlay when fetch starts
+    showLoadingOverlay();
 
     fetch('https://hook.eu2.make.com/xhmlwkil472n5249io31pk1ekddly33z', {
         method: 'POST',
@@ -12,24 +12,22 @@ function fetchMemberData() {
         body: JSON.stringify({})
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json(); 
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.json();
     })
     .then(data => {
-        memberData = data;
-        populateMembersTable(data.data); // Call the function to create the table
-        hideLoadingOverlay(); // Hide overlay after data is displayed
+        memberData = data.data;  // Store the fetched data globally
+        populateMembersTable(data.data);
+        hideLoadingOverlay();
     })
     .catch(error => {
         console.error('Error fetching data:', error);
-        showFailureModal(error.message); // Show failure modal if there's an error
-        hideLoadingOverlay(); // Hide overlay if there's an error
+        showFailureModal(error.message);
+        hideLoadingOverlay();
     });
 }
 
-// Function to create and populate the members table
+// Function to create and populate the members table with sorting capability
 function populateMembersTable(members) {
     const tableContainer = document.querySelector('.members-table');
 
@@ -38,90 +36,97 @@ function populateMembersTable(members) {
         return;
     }
 
-    // Create the table and header row
+    // Clear previous content
+    tableContainer.innerHTML = '';
+
+    // Create table and header row
     const table = document.createElement('table');
     table.id = 'members-data-table';
     const headerRow = document.createElement('tr');
 
     // Column headers with sorting functionality
     const headers = [
-        { name: 'Email', key: 'email' },
+        { name: 'Email', key: 'auth.email' },
         { name: 'Plans', key: 'planConnections' },
-        { name: 'First Name', key: 'first-name' },
-        { name: 'Last Name', key: 'last-name' },
-        { name: 'Actions', key: null } // No sorting for actions
+        { name: 'First Name', key: 'customFields.first-name' },
+        { name: 'Last Name', key: 'customFields.last-name' },
+        { name: 'Actions', key: null }
     ];
 
     headers.forEach(header => {
         const headerCell = document.createElement('th');
         headerCell.textContent = header.name;
-        
+
         if (header.key) {
-            headerCell.classList.add('sortable'); // Optional: Add a class for styling sortable headers
-            headerCell.addEventListener('click', () => {
-                sortTableByColumn(table, members, header.key);
-            });
+            headerCell.classList.add('sortable');
+            headerCell.addEventListener('click', () => sortTableByColumn(table, members, header.key));
         }
 
         headerRow.appendChild(headerCell);
     });
     table.appendChild(headerRow);
 
-    // Function to populate table rows
-    const populateRows = (members) => {
-        members.forEach(member => {
-            const row = document.createElement('tr');
-
-            // Email cell
-            const emailCell = document.createElement('td');
-            emailCell.textContent = member.auth.email;
-            row.appendChild(emailCell);
-
-            // Plan cell
-            const planConnectionsCell = document.createElement('td');
-            planConnectionsCell.textContent = member.planConnections 
-                ? member.planConnections.map(connection => connection.planName).join(', ') 
-                : 'N/A';
-            row.appendChild(planConnectionsCell);
-
-            // First Name and Last Name cells
-            const { 'first-name': firstName, 'last-name': lastName } = member.customFields;
-            const firstNameCell = document.createElement('td');
-            firstNameCell.textContent = firstName || 'N/A';
-            row.appendChild(firstNameCell);
-
-            const lastNameCell = document.createElement('td');
-            lastNameCell.textContent = lastName || 'N/A';
-            row.appendChild(lastNameCell);
-
-            // Edit button cell
-            const editButtonCell = document.createElement('td');
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Edit';
-            editButton.setAttribute('data-id', member.id);
-            editButton.addEventListener('click', () => {
-                const memberId = editButton.getAttribute('data-id');
-                const memberItem = memberData.data.find(item => item.id === memberId);
-                if (memberItem) {
-                    showEditModal(memberItem);
-                } else {
-                    console.error('Member data not found for ID:', memberId);
-                }
-            });
-            editButtonCell.appendChild(editButton);
-            row.appendChild(editButtonCell);
-
-            // Append the row to the table
-            table.appendChild(row);
-        });
-    };
-
-    // Initial population of rows
-    populateRows(members);
-
-    // Clear any existing content and add the table to the container
-    tableContainer.innerHTML = '';
+    populateRows(table, members);
     tableContainer.appendChild(table);
+}
+
+// Standalone function to populate table rows
+function populateRows(table, members) {
+    table.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
+
+    members.forEach(member => {
+        const row = document.createElement('tr');
+
+        // Email cell
+        const emailCell = document.createElement('td');
+        emailCell.textContent = member.auth.email;
+        row.appendChild(emailCell);
+
+        // Plan cell
+        const planConnectionsCell = document.createElement('td');
+        planConnectionsCell.textContent = member.planConnections 
+            ? member.planConnections.map(connection => connection.planName).join(', ') 
+            : 'N/A';
+        row.appendChild(planConnectionsCell);
+
+        // First Name and Last Name cells
+        const firstNameCell = document.createElement('td');
+        firstNameCell.textContent = member.customFields['first-name'] || 'N/A';
+        row.appendChild(firstNameCell);
+
+        const lastNameCell = document.createElement('td');
+        lastNameCell.textContent = member.customFields['last-name'] || 'N/A';
+        row.appendChild(lastNameCell);
+
+        // Edit button cell
+        const editButtonCell = document.createElement('td');
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.setAttribute('data-id', member.id);
+        editButton.addEventListener('click', () => {
+            const memberId = editButton.getAttribute('data-id');
+            const memberItem = memberData.find(item => item.id === memberId);
+            if (memberItem) {
+                showEditModal(memberItem);
+            } else {
+                console.error('Member data not found for ID:', memberId);
+            }
+        });
+        editButtonCell.appendChild(editButton);
+        row.appendChild(editButtonCell);
+
+        table.appendChild(row);
+    });
+}
+
+// Function to sort table by column
+function sortTableByColumn(table, members, columnKey) {
+    const sortedMembers = [...members].sort((a, b) => {
+        const valueA = columnKey.split('.').reduce((obj, key) => obj[key], a) || '';
+        const valueB = columnKey.split('.').reduce((obj, key) => obj[key], b) || '';
+        return valueA > valueB ? 1 : -1;
+    });
+    populateRows(table, sortedMembers);
 }
 
 // Function to sort table by a given column
