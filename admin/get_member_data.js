@@ -155,7 +155,7 @@ async function showEditModal(memberItem) {
 
         // Create the plan selection table dynamically
         const memberPlanTable = document.createElement('table'); // Create the table
-        memberPlanTable.id = 'plan-selection-table'; // Set an ID for the table
+        memberPlanTable.classList.add('admin-table', 'members-table'); // Add classes for styling
 
         // Create table header
         const headerRow = document.createElement('tr');
@@ -198,8 +198,6 @@ async function showEditModal(memberItem) {
                         console.log(`Assigning plan: ${planId}`);
                         // Your function logic goes here
                     };
-                } else {
-                    button.style.backgroundColor = '#ccc'; // Grey out the button if assigned
                 }
 
                 buttonCell.appendChild(button);
