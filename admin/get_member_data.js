@@ -105,7 +105,7 @@ function populateMembersTable(members) {
             const memberId = editButton.getAttribute('data-id');
             const memberItem = memberData.data.find(item => item.id === memberId);
             if (memberItem) {
-                showEditModal(memberItem, allPlansResponse); // Pass the found member to the modal function
+                showEditModal(memberItem); // Pass the found member to the modal function
             } else {
                 console.error('Member data not found for ID:', memberId);
             }
@@ -123,7 +123,7 @@ function populateMembersTable(members) {
 }
 
 // Function to show the edit modal and populate it with member data
-function showEditModal(memberItem, allPlansResponse) {
+function showEditModal(memberItem) {
     const modal = document.getElementById('edit-member-modal');
     if (modal) {
         // Display the modal
@@ -188,6 +188,7 @@ function showEditModal(memberItem, allPlansResponse) {
             memberPlanSelection.innerHTML = '';
 
             // Get all plan IDs and names
+            const allPlansResponse = await window.$memberstackDom.getPlans()
             const allPlanIds = allPlansResponse.data.map(connection => connection.id);
             const allPlanNames = allPlansResponse.data.map(connection => connection.name);
 
