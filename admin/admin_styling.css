@@ -18,29 +18,28 @@
   color: #3573b2;
 }
 
-/* Table Styling */
 .admin-table, .members-table {
   width: 100%;
-  border-spacing: 0;
-  border-radius: 10px;
-  overflow: hidden; /* Ensures content inside respects the rounded corners */
+  border-spacing: 0; /* No extra spacing between cells */
+  border-radius: 10px; /* Rounded outer corners */
+  overflow: hidden; /* Ensures content respects the rounded corners */
   font-size: 14px;
   text-align: left;
+  background-color: white; /* Background for the table to ensure visibility */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow for visibility */
 }
 
-/* Remove border collapse and adjust row borders */
-.admin-table tbody tr, .members-table tbody tr {
-  border-bottom: 1px solid #dddddd;
-}
-
+/* Header row styling */
 .admin-table thead tr, .members-table thead tr {
   background-color: #aaa;
   color: #ffffff;
   font-weight: bold;
 }
 
+/* Cell padding and borders for each cell */
 .admin-table th, .admin-table td,
 .members-table th, .members-table td {
+  border: 1px solid #cccccc;
   padding: 12px 15px;
 }
 
@@ -50,12 +49,25 @@
   background-color: #f3f3f3;
 }
 
+.admin-table tbody tr:nth-of-type(odd),
+.members-table tbody tr:nth-of-type(odd) {
+  background-color: white;
+}
+
+/* Last row border for styling consistency */
 .admin-table tbody tr:last-of-type,
 .members-table tbody tr:last-of-type {
   border-bottom: 2px solid #aaaaaa;
 }
 
-/* Adjust button styling */
+/* Specific column width and centering for certain columns */
+.admin-table th:nth-child(3), .admin-table td:nth-child(3),
+.members-table th:nth-child(3), .members-table td:nth-child(3) {
+  width: 60px;
+  text-align: center;
+}
+
+/* Button styling */
 .admin-table button, .members-table button {
   width: 40px;
   padding: 10px;
