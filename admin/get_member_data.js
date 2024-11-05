@@ -1,8 +1,8 @@
-let memberData = [];
+let memberData = null;
 
 // Function to fetch member data and populate table
 function fetchMemberData() {
-    showLoadingOverlay();
+    showLoadingOverlay(); // Show overlay when fetch starts
 
     fetch('https://hook.eu2.make.com/xhmlwkil472n5249io31pk1ekddly33z', {
         method: 'POST',
@@ -12,22 +12,24 @@ function fetchMemberData() {
         body: JSON.stringify({})
     })
     .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        return response.json();
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); 
     })
     .then(data => {
-        memberData = data.data;  // Store the fetched data globally
-        populateMembersTable(data.data);
-        hideLoadingOverlay();
+        memberData = data;
+        populateMembersTable(data.data); // Call the function to create the table
+        hideLoadingOverlay(); // Hide overlay after data is displayed
     })
     .catch(error => {
         console.error('Error fetching data:', error);
-        showFailureModal(error.message);
-        hideLoadingOverlay();
+        showFailureModal(error.message); // Show failure modal if there's an error
+        hideLoadingOverlay(); // Hide overlay if there's an error
     });
 }
 
-// Function to create and populate the members table with sorting capability
+// Function to create and populate the members table
 function populateMembersTable(members) {
     const tableContainer = document.querySelector('.members-table');
 
@@ -36,97 +38,90 @@ function populateMembersTable(members) {
         return;
     }
 
-    // Clear previous content
-    tableContainer.innerHTML = '';
-
-    // Create table and header row
+    // Create the table and header row
     const table = document.createElement('table');
     table.id = 'members-data-table';
     const headerRow = document.createElement('tr');
 
     // Column headers with sorting functionality
     const headers = [
-        { name: 'Email', key: 'auth.email' },
+        { name: 'Email', key: 'email' },
         { name: 'Plans', key: 'planConnections' },
-        { name: 'First Name', key: 'customFields.first-name' },
-        { name: 'Last Name', key: 'customFields.last-name' },
-        { name: 'Actions', key: null }
+        { name: 'First Name', key: 'first-name' },
+        { name: 'Last Name', key: 'last-name' },
+        { name: 'Actions', key: null } // No sorting for actions
     ];
 
     headers.forEach(header => {
         const headerCell = document.createElement('th');
         headerCell.textContent = header.name;
-
+        
         if (header.key) {
-            headerCell.classList.add('sortable');
-            headerCell.addEventListener('click', () => sortTableByColumn(table, members, header.key));
+            headerCell.classList.add('sortable'); // Optional: Add a class for styling sortable headers
+            headerCell.addEventListener('click', () => {
+                sortTableByColumn(table, members, header.key);
+            });
         }
 
         headerRow.appendChild(headerCell);
     });
     table.appendChild(headerRow);
 
-    populateRows(table, members);
-    tableContainer.appendChild(table);
-}
+    // Function to populate table rows
+    const populateRows = (members) => {
+        members.forEach(member => {
+            const row = document.createElement('tr');
 
-// Standalone function to populate table rows
-function populateRows(table, members) {
-    table.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
+            // Email cell
+            const emailCell = document.createElement('td');
+            emailCell.textContent = member.auth.email;
+            row.appendChild(emailCell);
 
-    members.forEach(member => {
-        const row = document.createElement('tr');
+            // Plan cell
+            const planConnectionsCell = document.createElement('td');
+            planConnectionsCell.textContent = member.planConnections 
+                ? member.planConnections.map(connection => connection.planName).join(', ') 
+                : 'N/A';
+            row.appendChild(planConnectionsCell);
 
-        // Email cell
-        const emailCell = document.createElement('td');
-        emailCell.textContent = member.auth.email;
-        row.appendChild(emailCell);
+            // First Name and Last Name cells
+            const { 'first-name': firstName, 'last-name': lastName } = member.customFields;
+            const firstNameCell = document.createElement('td');
+            firstNameCell.textContent = firstName || 'N/A';
+            row.appendChild(firstNameCell);
 
-        // Plan cell
-        const planConnectionsCell = document.createElement('td');
-        planConnectionsCell.textContent = member.planConnections 
-            ? member.planConnections.map(connection => connection.planName).join(', ') 
-            : 'N/A';
-        row.appendChild(planConnectionsCell);
+            const lastNameCell = document.createElement('td');
+            lastNameCell.textContent = lastName || 'N/A';
+            row.appendChild(lastNameCell);
 
-        // First Name and Last Name cells
-        const firstNameCell = document.createElement('td');
-        firstNameCell.textContent = member.customFields['first-name'] || 'N/A';
-        row.appendChild(firstNameCell);
+            // Edit button cell
+            const editButtonCell = document.createElement('td');
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.setAttribute('data-id', member.id);
+            editButton.addEventListener('click', () => {
+                const memberId = editButton.getAttribute('data-id');
+                const memberItem = memberData.data.find(item => item.id === memberId);
+                if (memberItem) {
+                    showEditModal(memberItem);
+                } else {
+                    console.error('Member data not found for ID:', memberId);
+                }
+            });
+            editButtonCell.appendChild(editButton);
+            row.appendChild(editButtonCell);
 
-        const lastNameCell = document.createElement('td');
-        lastNameCell.textContent = member.customFields['last-name'] || 'N/A';
-        row.appendChild(lastNameCell);
-
-        // Edit button cell
-        const editButtonCell = document.createElement('td');
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
-        editButton.setAttribute('data-id', member.id);
-        editButton.addEventListener('click', () => {
-            const memberId = editButton.getAttribute('data-id');
-            const memberItem = memberData.find(item => item.id === memberId);
-            if (memberItem) {
-                showEditModal(memberItem);
-            } else {
-                console.error('Member data not found for ID:', memberId);
-            }
+            // Append the row to the table
+            table.appendChild(row);
         });
-        editButtonCell.appendChild(editButton);
-        row.appendChild(editButtonCell);
+    };
 
-        table.appendChild(row);
-    });
-}
+    // Initial population of rows
+    populateRows(members);
 
-// Function to sort table by column
-function sortTableByColumn(table, members, columnKey) {
-    const sortedMembers = [...members].sort((a, b) => {
-        const valueA = columnKey.split('.').reduce((obj, key) => obj[key], a) || '';
-        const valueB = columnKey.split('.').reduce((obj, key) => obj[key], b) || '';
-        return valueA > valueB ? 1 : -1;
-    });
-    populateRows(table, sortedMembers);
+    // Clear any existing content and add the table to the container
+    tableContainer.innerHTML = '';
+    tableContainer.appendChild(table);
 }
 
 // Function to sort table by a given column
