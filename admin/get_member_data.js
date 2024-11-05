@@ -137,6 +137,7 @@ async function showEditModal(memberItem) {
         const memberLastNameInput = document.getElementById('member-last-name');
         const memberPhoneInput = document.getElementById('member-phone');
         const memberOccupationInput = document.getElementById('member-occupation');
+        const memberPlanSelection = document.getElementById('plan-selection');
 
         // Populate modal fields with member data
         memberIdInput.textContent = memberItem.id || 'No ID available';
@@ -147,10 +148,14 @@ async function showEditModal(memberItem) {
         memberPhoneInput.textContent = memberItem.customFields.phone || 'No phone number available';
         memberOccupationInput.textContent = memberItem.customFields.occupation || 'No occupation available';
 
+        // Clear any existing table inside the plan-selection element
+        while (memberPlanSelection.firstChild) {
+            memberPlanSelection.removeChild(memberPlanSelection.firstChild);
+        }
+
         // Create the plan selection table dynamically
-        const memberPlanTableContainer = document.createElement('div'); // Create a container for the table
         const memberPlanTable = document.createElement('table'); // Create the table
-        memberPlanTable.id = 'plan-selection'; // Set an ID for the table
+        memberPlanTable.id = 'plan-selection-table'; // Set an ID for the table
 
         // Create table header
         const headerRow = document.createElement('tr');
@@ -205,11 +210,8 @@ async function showEditModal(memberItem) {
             console.error('Error fetching plans:', error);
         }
 
-        // Clear any existing tables and append the new one to the container
-        while (modal.firstChild) {
-            modal.removeChild(modal.firstChild);
-        }
-        modal.appendChild(memberPlanTable); // Append the constructed table to the modal
+        // Append the constructed table to the plan-selection element
+        memberPlanSelection.appendChild(memberPlanTable);
     } else {
         console.error('Edit modal with ID "edit-member-modal" not found');
     }
