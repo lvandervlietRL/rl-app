@@ -105,7 +105,7 @@ function populateMembersTable(members) {
             const memberId = editButton.getAttribute('data-id');
             const memberItem = memberData.data.find(item => item.id === memberId);
             if (memberItem) {
-                showEditModal(memberItem); // Pass the found member to the modal function
+                showEditModal(memberItem, allPlansResponse); // Pass the found member to the modal function
             } else {
                 console.error('Member data not found for ID:', memberId);
             }
@@ -123,7 +123,7 @@ function populateMembersTable(members) {
 }
 
 // Function to show the edit modal and populate it with member data
-function showEditModal(memberItem) {
+function showEditModal(memberItem, allPlansResponse) {
     const modal = document.getElementById('edit-member-modal');
     if (modal) {
         // Display the modal
@@ -137,6 +137,7 @@ function showEditModal(memberItem) {
         const memberLastNameInput = document.getElementById('member-last-name');
         const memberPhoneInput = document.getElementById('member-phone');
         const memberOccupationInput = document.getElementById('member-occupation');
+        const memberPlanSelection = document.getElementById('plan-selection');
 
         // Populate modal fields with member data, or display an error message in the console if a field is missing
         if (memberIdInput) {
@@ -179,6 +180,42 @@ function showEditModal(memberItem) {
             memberOccupationInput.textContent = memberItem.customFields.occupation || 'No occupation available';
         } else {
             console.error('Element with ID "member-occupation" not found');
+        }
+
+        // Populate the plan selection with checkboxes
+        if (memberPlanSelection) {
+            // Clear any existing options
+            memberPlanSelection.innerHTML = '';
+
+            // Get all plan IDs and names
+            const allPlanIds = allPlansResponse.data.map(connection => connection.id);
+            const allPlanNames = allPlansResponse.data.map(connection => connection.name);
+
+            // Get member's plan IDs
+            const memberPlanIds = memberItem.planConnections.map(connection => connection.planId);
+
+            // Create checkboxes for each plan
+            allPlanIds.forEach((planId, index) => {
+                const planName = allPlanNames[index];
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `plan-${planId}`;
+                checkbox.value = planId;
+                
+                // Check the box if the member has the plan
+                checkbox.checked = memberPlanIds.includes(planId);
+
+                const label = document.createElement('label');
+                label.htmlFor = `plan-${planId}`;
+                label.textContent = planName;
+
+                // Append the checkbox and label to the plan selection element
+                memberPlanSelection.appendChild(checkbox);
+                memberPlanSelection.appendChild(label);
+                memberPlanSelection.appendChild(document.createElement('br')); // line break for better readability
+            });
+        } else {
+            console.error('Element with ID "plan-selection" not found');
         }
 
     } else {
