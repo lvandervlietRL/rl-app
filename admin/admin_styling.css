@@ -21,9 +21,16 @@
 /* Table Styling */
 .admin-table, .members-table {
   width: 100%;
-  border-collapse: collapse;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden; /* Ensures content inside respects the rounded corners */
   font-size: 14px;
   text-align: left;
+}
+
+/* Remove border collapse and adjust row borders */
+.admin-table tbody tr, .members-table tbody tr {
+  border-bottom: 1px solid #dddddd;
 }
 
 .admin-table thead tr, .members-table thead tr {
@@ -34,14 +41,10 @@
 
 .admin-table th, .admin-table td,
 .members-table th, .members-table td {
-  border: 1px solid #cccccc;
   padding: 12px 15px;
 }
 
-.admin-table tbody tr, .members-table tbody tr {
-  border-bottom: 1px solid #dddddd;
-}
-
+/* Alternating row colors */
 .admin-table tbody tr:nth-of-type(even),
 .members-table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
@@ -52,12 +55,7 @@
   border-bottom: 2px solid #aaaaaa;
 }
 
-.admin-table th:nth-child(3), .admin-table td:nth-child(3),
-.members-table th:nth-child(3), .members-table td:nth-child(3) {
-  width: 60px;
-  text-align: center;
-}
-
+/* Adjust button styling */
 .admin-table button, .members-table button {
   width: 40px;
   padding: 10px;
