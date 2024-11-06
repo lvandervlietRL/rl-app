@@ -207,6 +207,7 @@ async function showEditModal(memberItem) {
                         }
                 
                         const payload = {
+                            "memberId": memberItem.id,
                             "planId": planId
                         };
 
