@@ -154,7 +154,7 @@ async function showEditModal(memberItem) {
         }
 
         // Create the plan selection table dynamically
-        const memberPlanTable = document.createElement('table'); // Create the table
+        const memberPlanTable = document.createElement('table');
         memberPlanTable.classList.add('admin-table', 'members-table'); // Add classes for styling
 
         // Create table header
@@ -163,9 +163,13 @@ async function showEditModal(memberItem) {
         headerNameCell.textContent = 'Plan Name';
         const headerActionCell = document.createElement('th');
         headerActionCell.textContent = 'Action';
+        const headerDeleteCell = document.createElement('th'); // New "Delete" column
+        headerDeleteCell.textContent = 'Delete';
+
         headerRow.appendChild(headerNameCell);
         headerRow.appendChild(headerActionCell);
-        memberPlanTable.appendChild(headerRow); // Append header row to table
+        headerRow.appendChild(headerDeleteCell);
+        memberPlanTable.appendChild(headerRow);
 
         try {
             // Get all plan IDs and names
@@ -186,17 +190,15 @@ async function showEditModal(memberItem) {
                 nameCell.textContent = planName;
                 row.appendChild(nameCell);
 
-                // Create button cell
+                // Create action button cell
                 const buttonCell = document.createElement('td');
-                const button = document.createElement('button');
-                button.textContent = memberPlanIds.includes(planId) ? 'Assigned' : 'Assign';
-                button.disabled = memberPlanIds.includes(planId); // Disable button if already assigned
+                const assignButton = document.createElement('button');
+                assignButton.textContent = memberPlanIds.includes(planId) ? 'Assigned' : 'Assign';
+                assignButton.disabled = memberPlanIds.includes(planId);
 
-                if (!button.disabled) {
-                    button.onclick = function () {
-                        // Call your function to handle assignment here
+                if (!assignButton.disabled) {
+                    assignButton.onclick = function () {
                         console.log(`Assigning plan: ${planId}`);
-
                         showLoadingOverlay();
 
                         if (!planId) {
@@ -205,17 +207,11 @@ async function showEditModal(memberItem) {
                             hideLoadingOverlay();
                             return;
                         }
-                
-                        const payload = {
-                            "memberId": memberItem.id,
-                            "planId": planId
-                        };
 
+                        const payload = { "planId": planId };
                         fetch('https://hook.eu2.make.com/bdf797i7jxi144vhu62v56ybadc98dfg', {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
+                            headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(payload)
                         })
                         .then(response => {
@@ -238,10 +234,27 @@ async function showEditModal(memberItem) {
                         });
                     };
                 }
-
-                buttonCell.appendChild(button);
+                buttonCell.appendChild(assignButton);
                 row.appendChild(buttonCell);
-                memberPlanTable.appendChild(row); // Append row to table
+
+                // Create delete button cell
+                const deleteCell = document.createElement('td');
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '✖'; // Cross symbol
+                deleteButton.disabled = !memberPlanIds.includes(planId); // Enabled only if the plan is assigned
+
+                // Temporary function to log the planId on delete button click
+                if (!deleteButton.disabled) {
+                    deleteButton.onclick = function () {
+                        console.log(`Deleting plan: ${planId}`);
+                        // You can replace this log with the actual delete functionality later
+                    };
+                }
+                deleteCell.appendChild(deleteButton);
+                row.appendChild(deleteCell);
+
+                // Append the row to the table
+                memberPlanTable.appendChild(row);
             });
         } catch (error) {
             console.error('Error fetching plans:', error);
