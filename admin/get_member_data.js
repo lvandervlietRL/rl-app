@@ -247,7 +247,6 @@ async function showEditModal(memberItem) {
                 deleteButton.textContent = '✖'; // Cross symbol
                 deleteButton.disabled = !memberPlanIds.includes(planId); // Enabled only if the plan is assigned
 
-                // Temporary function to log the planId on delete button click
                 if (!deleteButton.disabled) {
                     deleteButton.onclick = function () {
                         console.log(`Deleting plan: ${planId}`);
@@ -264,7 +263,7 @@ async function showEditModal(memberItem) {
                             "planId": planId,
                             "memberId": memberItem.id,
                         };
-                        
+
                         fetch('https://hook.eu2.make.com/nhmufuh81gv67yepv3ofni2f5hd5nvrc', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
