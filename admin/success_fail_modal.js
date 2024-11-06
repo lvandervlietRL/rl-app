@@ -29,11 +29,11 @@ document.body.appendChild(failureModal);
 
 // Create a global member success modal element
 const memberSuccessModal = document.createElement('div');
-successModal.id = 'member-success-modal';
-successModal.style.cssText = `
+memberSuccessModal.id = 'member-success-modal';
+memberSuccessModal.style.cssText = `
     z-index: 9999; /* Ensures it's in front of other content */
 `;
-successModal.innerHTML = `
+memberSuccessModal.innerHTML = `
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <p>Je wijzigingen zijn succesvol opgeslagen!</p>
