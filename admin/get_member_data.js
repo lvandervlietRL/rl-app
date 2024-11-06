@@ -247,7 +247,39 @@ async function showEditModal(memberItem) {
                 if (!deleteButton.disabled) {
                     deleteButton.onclick = function () {
                         console.log(`Deleting plan: ${planId}`);
-                        // You can replace this log with the actual delete functionality later
+                        showLoadingOverlay();
+
+                        if (!planId) {
+                            const errorMessage = 'planId not available.';
+                            showFailureModal(errorMessage);
+                            hideLoadingOverlay();
+                            return;
+                        }
+
+                        const payload = { "planId": planId };
+                        fetch('https://hook.eu2.make.com/nhmufuh81gv67yepv3ofni2f5hd5nvrc', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                const errorMessage = `HTTP error! Status: ${response.status}`;
+                                showFailureModal(errorMessage);
+                                hideLoadingOverlay(); 
+                                throw new Error(errorMessage);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            showSuccessModal();
+                            hideLoadingOverlay();
+                        })
+                        .catch(error => {
+                            const errorMessage = `Error sending data to the webhook: ${error}`;
+                            showFailureModal(errorMessage);
+                            hideLoadingOverlay();
+                        });
                     };
                 }
                 deleteCell.appendChild(deleteButton);
