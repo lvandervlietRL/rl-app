@@ -27,6 +27,20 @@ failureModal.innerHTML = `
 `;
 document.body.appendChild(failureModal);
 
+// Create a global member success modal element
+const memberSuccessModal = document.createElement('div');
+successModal.id = 'member-success-modal';
+successModal.style.cssText = `
+    z-index: 9999; /* Ensures it's in front of other content */
+`;
+successModal.innerHTML = `
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <p>Je wijzigingen zijn succesvol opgeslagen!</p>
+    </div>
+`;
+document.body.appendChild(memberSuccessModal);
+
 // Function to show the success modal
 function showSuccessModal() {
     successModal.style.display = 'block';
@@ -37,6 +51,11 @@ function showFailureModal(errorMessage = '') {
     const errorMessageElement = document.getElementById('error-message');
     errorMessageElement.textContent = errorMessage; // Set the error message
     failureModal.style.display = 'block';
+}
+
+// Function to show the member success modal
+function showMemberSuccessModal() {
+    memberSuccessModal.style.display = 'block';
 }
 
 // Function to close the success modal and store active tab state
@@ -62,6 +81,12 @@ function closeFailureModal() {
     failureModal.style.display = 'none';
 }
 
+// Function to close the member success modal and load member data
+function closeMemberSuccessModal() {
+    memberSuccessModal.style.display = 'none';
+    fetchMemberData()
+}
+
 // Event listeners for closing each modal
 const closeSuccessButton = successModal.querySelector('.close-button');
 closeSuccessButton.addEventListener('click', closeSuccessModal);
@@ -69,10 +94,15 @@ closeSuccessButton.addEventListener('click', closeSuccessModal);
 const closeFailureButton = failureModal.querySelector('.close-button');
 closeFailureButton.addEventListener('click', closeFailureModal);
 
+const closeMemberSuccessButton = memberSuccessModal.querySelector('.close-button');
+closeMemberSuccessButton.addEventListener('click', closeMemberSuccessModal);
+
 // Event listener to close modals when clicking outside of them
 window.addEventListener('click', (event) => {
     if (event.target === successModal) {
         closeSuccessModal();
+    } else if (event.target === memberSuccessModal) {
+        closeMemberSuccessModal();
     } else if (event.target === failureModal) {
         closeFailureModal();
     }
@@ -95,5 +125,7 @@ window.addEventListener('load', () => {
 // Export functions to make them accessible globally
 window.showSuccessModal = showSuccessModal;
 window.showFailureModal = showFailureModal;
+window.showMemberSuccessModal = showMemberSuccessModal;
 window.closeSuccessModal = closeSuccessModal;
 window.closeFailureModal = closeFailureModal;
+window.closeMemberSuccessModal = closeMemberSuccessModal;

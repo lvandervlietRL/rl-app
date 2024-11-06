@@ -29,6 +29,8 @@ function fetchMemberData() {
     });
 }
 
+window.fetchMemberData = fetchMemberData;
+
 // Function to create and populate the members table
 function populateMembersTable(members) {
     const tableContainer = document.querySelector('.members-table');
@@ -228,7 +230,7 @@ async function showEditModal(memberItem) {
                             return response.json();
                         })
                         .then(data => {
-                            showSuccessModal();
+                            showMemberSuccessModal();
                             hideLoadingOverlay();
                         })
                         .catch(error => {
@@ -279,7 +281,7 @@ async function showEditModal(memberItem) {
                             return response.json();
                         })
                         .then(data => {
-                            showSuccessModal();
+                            showMemberSuccessModal();
                             hideLoadingOverlay();
                         })
                         .catch(error => {
