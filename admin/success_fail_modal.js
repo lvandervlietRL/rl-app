@@ -1,6 +1,9 @@
 // Create a global success modal element
 const successModal = document.createElement('div');
 successModal.id = 'success-modal';
+successModal.style.cssText = `
+    z-index: 9999; /* Ensures it's in front of other content */
+`;
 successModal.innerHTML = `
     <div class="modal-content">
         <span class="close-button">&times;</span>
@@ -12,6 +15,9 @@ document.body.appendChild(successModal);
 // Create a global failure modal element with a placeholder for the error message
 const failureModal = document.createElement('div');
 failureModal.id = 'failure-modal';
+failureModal.style.cssText = `
+    z-index: 9999; /* Ensures it's in front of other content */
+`;
 failureModal.innerHTML = `
     <div class="modal-content">
         <span class="close-button">&times;</span>
@@ -89,5 +95,5 @@ window.addEventListener('load', () => {
 // Export functions to make them accessible globally
 window.showSuccessModal = showSuccessModal;
 window.showFailureModal = showFailureModal;
-window.closeSuccessModal = closeSuccessModal; // Corrected function name
-window.closeFailureModal = closeFailureModal; // Corrected function name
+window.closeSuccessModal = closeSuccessModal;
+window.closeFailureModal = closeFailureModal;
