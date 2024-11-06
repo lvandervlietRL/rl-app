@@ -208,7 +208,11 @@ async function showEditModal(memberItem) {
                             return;
                         }
 
-                        const payload = { "planId": planId };
+                        const payload = { 
+                            "planId": planId,
+                            "memberId": memberItem.id,
+                        };
+
                         fetch('https://hook.eu2.make.com/bdf797i7jxi144vhu62v56ybadc98dfg', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -256,7 +260,11 @@ async function showEditModal(memberItem) {
                             return;
                         }
 
-                        const payload = { "planId": planId };
+                        const payload = { 
+                            "planId": planId,
+                            "memberId": memberItem.id,
+                        };
+                        
                         fetch('https://hook.eu2.make.com/nhmufuh81gv67yepv3ofni2f5hd5nvrc', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
