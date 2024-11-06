@@ -129,3 +129,8 @@
   color: #000;
   text-decoration: none;
 }
+
+#plan-selection {
+  /* max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto; /* Enables vertical scrolling */
+}
