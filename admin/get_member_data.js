@@ -48,6 +48,7 @@ function fetchMemberDataUpdate() {
     })
     .then(data => {
         memberData = data;
+        showEditModal(memberItem);
         hideLoadingOverlay(); // Hide overlay after data is displayed
     })
     .catch(error => {
