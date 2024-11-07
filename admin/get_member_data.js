@@ -29,7 +29,35 @@ function fetchMemberData() {
     });
 }
 
-window.fetchMemberData = fetchMemberData;
+// Function to fetch member data and populate table
+function fetchMemberDataUpdate() {
+    showLoadingOverlay(); // Show overlay when fetch starts
+
+    fetch('https://hook.eu2.make.com/xhmlwkil472n5249io31pk1ekddly33z', {
+        method: 'POST',
+        headers: {
+           'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        memberData = data;
+        hideLoadingOverlay(); // Hide overlay after data is displayed
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+        showFailureModal(error.message); // Show failure modal if there's an error
+        hideLoadingOverlay(); // Hide overlay if there's an error
+    });
+}
+
+window.fetchMemberDataUpdate = fetchMemberDataUpdate;
 
 // Function to create and populate the members table
 function populateMembersTable(members) {

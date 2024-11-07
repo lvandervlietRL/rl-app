@@ -84,7 +84,7 @@ function closeFailureModal() {
 // Function to close the member success modal and load member data
 function closeMemberSuccessModal() {
     memberSuccessModal.style.display = 'none';
-    fetchMemberData()
+    fetchMemberDataUpdate()
 }
 
 // Event listeners for closing each modal
