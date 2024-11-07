@@ -20,3 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //     body: JSON.stringify(logInfo)
     // }).catch(error => console.error("Error logging page load info:", error));
 });
+
+// appAndMemberData = await window.$memberstackDom.getAppAndMember()
+// appAndMemberData.data.app
+// appAndMemberData.data.member
