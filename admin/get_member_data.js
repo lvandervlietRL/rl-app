@@ -7,7 +7,7 @@ function fetchMemberData() {
     fetch('https://hook.eu2.make.com/xhmlwkil472n5249io31pk1ekddly33z', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+           'Content-Type': 'application/json'
         },
         body: JSON.stringify({})
     })
@@ -55,21 +55,11 @@ function populateMembersTable(members) {
     // Populate table rows with member data
     members.forEach(member => {
         const row = document.createElement('tr');
-        
-        // ID cell
-        // const idCell = document.createElement('td');
-        // idCell.textContent = member.id;
-        // row.appendChild(idCell);
 
         // Email cell
         const emailCell = document.createElement('td');
         emailCell.textContent = member.auth.email;
         row.appendChild(emailCell);
-
-        // Created At cell
-        // const createdAtCell = document.createElement('td');
-        // createdAtCell.textContent = new Date(member.createdAt).toLocaleDateString();
-        // row.appendChild(createdAtCell);
 
         // Plan cell
         const planConnectionsCell = document.createElement('td');
@@ -80,7 +70,6 @@ function populateMembersTable(members) {
 
         // Custom fields cells (first name, last name, phone, occupation)
         const { 'first-name': firstName, 'last-name': lastName } = member.customFields;
-        // const { 'first-name': firstName, 'last-name': lastName, phone, occupation } = member.customFields;
 
         const firstNameCell = document.createElement('td');
         firstNameCell.textContent = firstName || 'N/A';
@@ -89,14 +78,6 @@ function populateMembersTable(members) {
         const lastNameCell = document.createElement('td');
         lastNameCell.textContent = lastName || 'N/A';
         row.appendChild(lastNameCell);
-
-        // const phoneCell = document.createElement('td');
-        // phoneCell.textContent = phone || 'N/A';
-        // row.appendChild(phoneCell);
-
-        // const occupationCell = document.createElement('td');
-        // occupationCell.textContent = occupation || 'N/A';
-        // row.appendChild(occupationCell);
 
         // Edit button cell
         const editButtonCell = document.createElement('td');
