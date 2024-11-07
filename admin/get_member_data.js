@@ -48,6 +48,8 @@ function fetchMemberDataUpdate() {
     })
     .then(data => {
         memberData = data;
+        const memberId = document.getElementById("member-id").textContent;
+        const memberItem = memberData.data.find(item => item.id === memberId);
         showEditModal(memberItem);
         hideLoadingOverlay(); // Hide overlay after data is displayed
     })
