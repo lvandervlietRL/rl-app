@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dashboardLink === null) return;
 
             const payload = {
+                DashboardId: dashCmsId,
                 id: itemId,
                 isArchived: false,
                 isDraft: false,
