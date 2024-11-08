@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const payload = {
                 id: itemId,
+                DashboardId: dashCmsId
             };
 
             fetch('https://hook.eu2.make.com/fwajh95bt36d6ic5wesmyoowka4mw3ex', {
