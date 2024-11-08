@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const payload = {
                 id: itemId,
+                WorkspaceId: wsCmsId
             };
 
             fetch('https://hook.eu2.make.com/y60y6hrofoh6yg3uyagl2banxem72b99', {

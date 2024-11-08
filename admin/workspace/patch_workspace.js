@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const payload = {
+                WorkspaceId: wsCmsId,
                 id: itemId,
                 isArchived: false,
                 isDraft: false,
