@@ -1,5 +1,16 @@
 let memberData = null;
 
+const wsElement = document.querySelector('.workspace-id')
+const dashElement = document.querySelector('.workspace-id')
+
+let wsCmsId = wsElement.textContent.trim()
+let dashCmsId = dashElement.textContent.trim()
+
+const payload = {
+    WorkspaceId: wsCmsId,
+    DashboardId: dashCmsId
+}
+
 // Function to fetch member data and populate table
 function fetchMemberData() {
     showLoadingOverlay(); // Show overlay when fetch starts

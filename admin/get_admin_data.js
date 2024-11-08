@@ -17,6 +17,11 @@ function hideLoadingOverlay() {
 function fetchWebhookData() {
     // Show loading spinner
     showLoadingOverlay();
+
+    const payload = {
+        WorkspaceId: wsCmsId,
+        DashboardId: dashCmsId
+    }
     
     // Fetch data from the first Make webhook
     fetch('https://hook.eu2.make.com/5hbungik9p14284ilulge2ahahggor7f', {
@@ -24,7 +29,7 @@ function fetchWebhookData() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({})
+        body: JSON.stringify(payload)
     })
     .then(response => {
         console.log('Full response (first webhook):', response);
@@ -43,7 +48,7 @@ function fetchWebhookData() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({})
+            body: JSON.stringify(payload)
         });
     })
     .then(secondResponse => {
