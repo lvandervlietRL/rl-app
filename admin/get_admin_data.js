@@ -1,7 +1,7 @@
 // get_admin_data.js
 
 const wsElement = document.querySelector('.workspace-id')
-const dashElement = document.querySelector('.workspace-id')
+const dashElement = document.querySelector('.dashboard-id')
 
 let wsCmsId = wsElement.textContent.trim()
 let dashCmsId = dashElement.textContent.trim()
