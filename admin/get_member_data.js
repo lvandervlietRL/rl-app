@@ -1,15 +1,15 @@
 let memberData = null;
 
-const fullUrl = window.location.href;
-const domain = fullUrl.split('/').slice(0, 3).join('/');
-
-const payload = {
-    domain: domain
-}
+let fullUrl = window.location.href;
+let domain = fullUrl.split('/').slice(0, 3).join('/');
 
 // Function to fetch member data and populate table
 function fetchMemberData() {
     showLoadingOverlay(); // Show overlay when fetch starts
+
+    const payload = {
+        domain: domain
+    }
 
     fetch('https://hook.eu2.make.com/xhmlwkil472n5249io31pk1ekddly33z', {
         method: 'POST',
@@ -232,6 +232,7 @@ async function showEditModal(memberItem) {
                         const payload = { 
                             "planId": planId,
                             "memberId": memberItem.id,
+                            "domain": domain
                         };
 
                         fetch('https://hook.eu2.make.com/bdf797i7jxi144vhu62v56ybadc98dfg', {
@@ -283,6 +284,7 @@ async function showEditModal(memberItem) {
                         const payload = { 
                             "planId": planId,
                             "memberId": memberItem.id,
+                            "domain": domain
                         };
 
                         fetch('https://hook.eu2.make.com/nhmufuh81gv67yepv3ofni2f5hd5nvrc', {
