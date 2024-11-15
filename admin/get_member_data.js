@@ -1,9 +1,11 @@
 let memberData = null;
 
-// const payload = {
-//     WorkspaceId: wsCmsId,
-//     DashboardId: dashCmsId
-// }
+const fullUrl = window.location.href;
+const domain = fullUrl.split('/').slice(0, 3).join('/');
+
+const payload = {
+    domain: domain
+}
 
 // Function to fetch member data and populate table
 function fetchMemberData() {
@@ -14,7 +16,7 @@ function fetchMemberData() {
         headers: {
            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({})
+        body: JSON.stringify(payload)
     })
     .then(response => {
         if (!response.ok) {
