@@ -40,12 +40,16 @@ function fetchMemberData() {
 function fetchMemberDataUpdate() {
     showLoadingOverlay(); // Show overlay when fetch starts
 
+    const payload = {
+        domain: domain
+    }
+
     fetch('https://hook.eu2.make.com/xhmlwkil472n5249io31pk1ekddly33z', {
         method: 'POST',
         headers: {
            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({})
+        body: JSON.stringify(payload)
     })
     .then(response => {
         if (!response.ok) {
