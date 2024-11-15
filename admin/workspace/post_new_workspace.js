@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isArchived: false,
                 isDraft: false,
                 fieldData: {
+                    WorkspaceId: wsCmsId,
                     name: workspaceName,
                     slug: workspaceSlug,
                     "workspace-omschrijving": workspaceDescription,

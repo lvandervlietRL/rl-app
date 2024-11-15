@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const dashboards = Array.from(dashboardTableRows).slice(1).map(row => row.querySelector('td:first-child').textContent.trim());
 
             const payload = {
+                DashboardId: dashCmsId,
                 isArchived: false,
                 isDraft: false,
                 fieldData: {
