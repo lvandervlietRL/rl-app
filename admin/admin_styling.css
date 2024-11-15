@@ -22,10 +22,9 @@
 .admin-table, .members-table {
   width: 100%;
   table-layout: auto; 
-  border-collapse: separate; /* Allow separate borders for rounded corners */
   border-spacing: 0; /* No extra spacing between cells */
   border-radius: 10px; /* Rounded outer corners */
-  overflow: hidden; /* Ensures content respects the rounded corners */
+  /* overflow: hidden; /* Ensures content respects the rounded corners */
   font-size: 14px;
   text-align: left;
 }
@@ -47,7 +46,7 @@
 /* Alternating row colors */
 .admin-table tbody tr:nth-of-type(even),
 .members-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3; /* Light gray for even rows */
+  background-color: #aaa; /* Light gray for even rows */
 }
 
 .admin-table tbody tr:nth-of-type(odd),
