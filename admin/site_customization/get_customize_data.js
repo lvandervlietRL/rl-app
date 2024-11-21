@@ -40,3 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const getMembersButton = document.querySelector('.get-site-button');
     fetchCustimezeSiteData();
 });
+
+// customize-name
+// customize-hero-title
+// customize-hero-subtitle
+// customize-hero-image
+// customize-logo
+// customize-street
+// customize-house-number
+// customize-postcode
+// customize-city
+// customize-support-phone
+// customize-support-mail
+// customize-facebook
+// customize-linkedin
+// customize-github
+// customize-instagram
+// customize-youtube
+// customize-whatsapp
+// customize-twitter
+// customize-snapchat
+// customize-tiktok
