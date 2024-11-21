@@ -13,7 +13,7 @@ function fetchCustimezeSiteData() {
     }
     
     // Fetch data from the first Make webhook
-    fetch('https://hook.eu2.make.com/5hbungik9p14284ilulge2ahahggor7f', {
+    fetch('https://hook.eu2.make.com/4q7mtan5fejlhtifi8ndx2qm4nby75u9', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
