@@ -2,9 +2,11 @@
 
 const wsElement = document.querySelector('.workspace-id')
 const dashElement = document.querySelector('.dashboard-id')
+const customizationElement = document.querySelector('.customization-id')
 
 let wsCmsId = wsElement.textContent.trim()
 let dashCmsId = dashElement.textContent.trim()
+let customCmsId = customizationElement.textContent.trim()
 
 // Declare global variables
 let firstWebhookData = null;

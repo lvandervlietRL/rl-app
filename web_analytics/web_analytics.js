@@ -24,3 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
 // appAndMemberData = await window.$memberstackDom.getAppAndMember()
 // appAndMemberData.data.app
 // appAndMemberData.data.member
+
+// appAndMemberData.data.member.customFields["dark-mode-on"]
+// if = true then dark mode, else light mode
