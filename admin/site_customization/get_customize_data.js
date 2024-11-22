@@ -57,9 +57,9 @@ function showEditModal(memberItem) {
             if (!element) {
                 console.warn(`Element with ID '${id}' not found.`);
                 return;
-            }
+            } 
 
-            const inputElement = document.querySelector(`.${id}-input`);
+            const inputElement = document.getElementById(`.${id}-input`);
             if (inputElement) {
                 inputElement.value = element.textContent || element.innerText || '';
             } else {
@@ -85,10 +85,25 @@ function showEditModal(memberItem) {
         // if (heroTitleInput) {
         //     heroTitleInput.value = customizeHeroTitle ;
         // }
+        
+document.addEventListener('DOMContentLoaded', () => {
+    const editButton = document.getElementById('edit-site-button');
+
+    if (editButton) {
+        editButton.addEventListener('click', () => {
+            // Assuming `memberItem` is already defined or fetched elsewhere
+            const memberItem = null; // Replace with the actual data if necessary
+            showEditModal(memberItem);
+        });
+    } else {
+        console.warn('Edit site button not found.');
+    }
+});
 
 
 // customize-hero-title-input
 // customize-hero-subtitle-input
+// customize-accent-color-input
 // customize-hero-image-input
 // customize-logo-input
 // customize-street-input
@@ -228,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     } else {
-        const errorMessage = 'Button with class "workspace-save-button" not found.';
+        const errorMessage = 'Button with class "site-customize-save-button" not found.';
         showFailureModal(errorMessage);
         hideLoadingOverlay();
     }
