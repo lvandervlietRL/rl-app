@@ -59,11 +59,11 @@ function showEditModal() {
                 return;
             } 
 
-            const inputElement = document.getElementById(`.${id}-input`);
-            if (inputElement) {
-                inputElement.value = element.textContent || element.innerText || '';
-            } else {
-                console.warn(`Input element with class '${id}-input' not found.`);
+            // Check for an input element by ID
+            const inputElementById = document.getElementById(`${id}-input`);
+            if (inputElementById) {
+                inputElementById.value = element.textContent || element.innerText || '';
+                return; // Exit since we found the input by ID
             }
         };
 
