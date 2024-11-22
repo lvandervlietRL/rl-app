@@ -74,18 +74,6 @@ function showEditModal() {
     }
 }
 
-        // // Fetch modal input elements
-        // const elements = {};
-        // elementIds.forEach(id => {
-        //     elements[id] = document.getElementById(id);
-        // });
-
-        // const heroTitleInput = document.querySelector('.customize-hero-title-input');
-
-        // if (heroTitleInput) {
-        //     heroTitleInput.value = customizeHeroTitle ;
-        // }
-
 document.addEventListener('DOMContentLoaded', () => {
     const editButton = document.getElementById('edit-site-button');
 
@@ -98,6 +86,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const closeModalButton = document.getElementById('close-customize-editor');
+
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
+            const modal = document.getElementById('customize-site-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    } else {
+        console.error('Button with ID "close-customize-editor" not found');
+    }
+});
 
 // customize-hero-title-input
 // customize-hero-subtitle-input
