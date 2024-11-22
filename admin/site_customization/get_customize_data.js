@@ -19,7 +19,7 @@
 // customize-tiktok
 
 // Function to show the edit modal and populate it with site data
-function showEditModal(memberItem) {
+function showEditModal() {
     try {
         const modal = document.getElementById('customize-site-modal');
         if (!modal) throw new Error('Edit modal not found.');
@@ -85,15 +85,13 @@ function showEditModal(memberItem) {
         // if (heroTitleInput) {
         //     heroTitleInput.value = customizeHeroTitle ;
         // }
-        
+
 document.addEventListener('DOMContentLoaded', () => {
     const editButton = document.getElementById('edit-site-button');
 
     if (editButton) {
         editButton.addEventListener('click', () => {
-            // Assuming `memberItem` is already defined or fetched elsewhere
-            const memberItem = null; // Replace with the actual data if necessary
-            showEditModal(memberItem);
+            showEditModal();
         });
     } else {
         console.warn('Edit site button not found.');
