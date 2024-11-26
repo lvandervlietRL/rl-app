@@ -162,49 +162,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Use checkElementValueById from utility.js
             // Check required values
-            const heroTitle = checkElementValueById('.customize-hero-title-input', 'Error: Hero title cannot be empty.');
+            const heroTitle = checkElementValueById('customize-hero-title-input', 'Error: Hero title cannot be empty.');
             if (heroTitle === null) return;
 
-            const heroSubtitle = checkElementValueById('.customize-hero-subtitle-input', 'Error: Hero subtitle cannot be empty.');
+            const heroSubtitle = checkElementValueById('customize-hero-subtitle-input', 'Error: Hero subtitle cannot be empty.');
             if (heroSubtitle === null) return;
 
-            const accentColor = checkElementValueById('.customize-accent-color-input', 'Error: Hero subtitle cannot be empty.');
+            const accentColor = checkElementValueById('customize-accent-color-input', 'Error: Hero subtitle cannot be empty.');
             if (accentColor === null) return;
 
-            // const heroImage = checkElementValueById('.customize-hero-image-input', 'Error: Hero image cannot be empty.');
+            // const heroImage = checkElementValueById('customize-hero-image-input', 'Error: Hero image cannot be empty.');
             // if (heroImage === null) return;
 
-            // const logo = checkElementValueById('.customize-logo-input', 'Error: Logo cannot be empty.');
+            // const logo = checkElementValueById('customize-logo-input', 'Error: Logo cannot be empty.');
             // if (logo === null) return;
 
-            const street = checkElementValueById('.customize-street-input', 'Error: Street cannot be empty.');
+            const street = checkElementValueById('customize-street-input', 'Error: Street cannot be empty.');
             if (street === null) return;
 
-            const houseNumber = checkElementValueById('.customize-house-number-input', 'Error: House number cannot be empty.');
+            const houseNumber = checkElementValueById('customize-house-number-input', 'Error: House number cannot be empty.');
             if (houseNumber === null) return;
 
-            const postcode = checkElementValueById('.customize-postcode-input', 'Error: Postcode cannot be empty.');
+            const postcode = checkElementValueById('customize-postcode-input', 'Error: Postcode cannot be empty.');
             if (postcode === null) return;
 
-            const city = checkElementValueById('.customize-city-input', 'Error: City cannot be empty.');
+            const city = checkElementValueById('customize-city-input', 'Error: City cannot be empty.');
             if (city === null) return;
 
-            const supportPhone = checkElementValueById('.customize-support-phone-input', 'Error: Support phone cannot be empty.');
+            const supportPhone = checkElementValueById('customize-support-phone-input', 'Error: Support phone cannot be empty.');
             if (supportPhone === null) return;
 
-            const supportMail = checkElementValueById('.customize-support-mail-input', 'Error: Support mail cannot be empty.');
+            const supportMail = checkElementValueById('customize-support-mail-input', 'Error: Support mail cannot be empty.');
             if (supportMail === null) return;
 
             // Optional social media inputs
-            const facebook = checkElementValueById('.customize-facebook-input', null);
-            const linkedin = checkElementValueById('.customize-linkedin-input', null);
-            const github = checkElementValueById('.customize-github-input', null);
-            const instagram = checkElementValueById('.customize-instagram-input', null);
-            const youtube = checkElementValueById('.customize-youtube-input', null);
-            const whatsapp = checkElementValueById('.customize-whatsapp-input', null);
-            const twitter = checkElementValueById('.customize-twitter-input', null);
-            const snapchat = checkElementValueById('.customize-snapchat-input', null);
-            const tiktok = checkElementValueById('.customize-tiktok-input', null);
+            const facebook = checkElementValueById('customize-facebook-input', null);
+            const linkedin = checkElementValueById('customize-linkedin-input', null);
+            const github = checkElementValueById('customize-github-input', null);
+            const instagram = checkElementValueById('customize-instagram-input', null);
+            const youtube = checkElementValueById('customize-youtube-input', null);
+            const whatsapp = checkElementValueById('customize-whatsapp-input', null);
+            const twitter = checkElementValueById('customize-twitter-input', null);
+            const snapchat = checkElementValueById('customize-snapchat-input', null);
+            const tiktok = checkElementValueById('customize-tiktok-input', null);
 
             const payload = {
                 "workspaceId": wsCmsId,
