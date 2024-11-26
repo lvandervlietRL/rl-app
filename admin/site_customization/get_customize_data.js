@@ -171,11 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const accentColor = checkElementValue('.customize-accent-color-input', 'Error: Hero subtitle cannot be empty.');
             if (accentColor === null) return;
 
-            const heroImage = checkElementValue('.customize-hero-image-input', 'Error: Hero image cannot be empty.');
-            if (heroImage === null) return;
+            // const heroImage = checkElementValue('.customize-hero-image-input', 'Error: Hero image cannot be empty.');
+            // if (heroImage === null) return;
 
-            const logo = checkElementValue('.customize-logo-input', 'Error: Logo cannot be empty.');
-            if (logo === null) return;
+            // const logo = checkElementValue('.customize-logo-input', 'Error: Logo cannot be empty.');
+            // if (logo === null) return;
 
             const street = checkElementValue('.customize-street-input', 'Error: Street cannot be empty.');
             if (street === null) return;
