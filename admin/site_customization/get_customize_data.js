@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const heroSubtitle = checkElementValueById('customize-hero-subtitle-input', 'Error: Hero subtitle cannot be empty.');
             if (heroSubtitle === null) return;
 
-            const accentColor = checkElementValueById('customize-accent-color-input', 'Error: Hero subtitle cannot be empty.');
+            const accentColor = checkElementValue('.customize-accent-color-input', 'Error: Hero subtitle cannot be empty.');
             if (accentColor === null) return;
 
             // const heroImage = checkElementValueById('customize-hero-image-input', 'Error: Hero image cannot be empty.');
