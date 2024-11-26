@@ -207,9 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const tiktok = checkElementValueById('customize-tiktok-input', null);
 
             const payload = {
-                "workspaceId": wsCmsId,
-                "dashboardId": dashCmsId,
-                "customCmsId": customCmsId,
+                workspaceId: wsCmsId,
+                dashboardId: dashCmsId,
+                customCmsId: customCmsId,
                 "isArchived": false,
                 "isDraft": false,
                 "fieldData": {
