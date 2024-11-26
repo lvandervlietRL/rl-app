@@ -1,6 +1,6 @@
 // utility.js
 function checkElementValue(selector, errorMessage) {
-    const element = document.querySelector(selector);
+    const element = document.getElementById(selector);
     if (!element || !element.value.trim()) {
         showFailureModal(errorMessage);
         hideLoadingOverlay(); // Hide loading overlay
