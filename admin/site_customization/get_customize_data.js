@@ -29,7 +29,7 @@ var colorPicker = new iro.ColorPicker(".ms-colorpicker", {
     borderColor: "#f5f5f5",
 });    
 var values = document.getElementById("values");
-var hexInput = document.getElementById("customize-accent-color-input");
+var hexInput = document.getElementById("hexInput");
 var swatch = document.getElementById("colorSwatch");    // https://iro.js.org/guide.html#color-picker-events
 colorPicker.on(["color:init", "color:change"], function(color){
     // Show the current color in different formats
