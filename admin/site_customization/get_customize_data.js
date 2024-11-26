@@ -244,6 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
               }
 
+            console.log(payload)
+
             fetch('https://hook.eu2.make.com/4q7mtan5fejlhtifi8ndx2qm4nby75u9', {
                 method: 'POST',
                 headers: {
