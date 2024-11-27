@@ -279,3 +279,53 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLoadingOverlay();
     }
 }); 
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Ensure utility.js is loaded and accessible
+    const button = document.getElementById('publish-site-customize-button'); 
+
+    if (button) {
+        button.addEventListener('click', function () {
+            // Show loading overlay
+            showLoadingOverlay();
+
+            const payload = {
+                workspaceId: wsCmsId,
+                dashboardId: dashCmsId,
+                customCmsId: customCmsId,
+              }
+
+            fetch('https://hook.eu2.make.com/x8n9f3nym33k25366b4atxcdq66tgbfp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    const errorMessage = `HTTP error! Status: ${response.status}`;
+                    showFailureModal(errorMessage);
+                    hideLoadingOverlay();
+                    throw new Error(errorMessage);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from webhook:', data);
+                showSuccessModal(); 
+                hideLoadingOverlay();
+            })
+            .catch(error => {
+                const errorMessage = `Error sending data to the webhook: ${error}`;
+                showFailureModal(errorMessage);
+                hideLoadingOverlay();
+            });
+        });
+    } else {
+        const errorMessage = 'Button with class "publish-site-customize-button" not found.';
+        showFailureModal(errorMessage);
+        hideLoadingOverlay();
+    }
+}); 
