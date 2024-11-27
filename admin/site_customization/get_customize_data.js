@@ -196,15 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (supportMail === null) return;
 
             // Optional social media inputs
-            const facebook = checkElementValueById('customize-facebook-input', null);
-            const linkedin = checkElementValueById('customize-linkedin-input', null);
-            const github = checkElementValueById('customize-github-input', null);
-            const instagram = checkElementValueById('customize-instagram-input', null);
-            const youtube = checkElementValueById('customize-youtube-input', null);
-            const whatsapp = checkElementValueById('customize-whatsapp-input', null);
-            const twitter = checkElementValueById('customize-twitter-input', null);
-            const snapchat = checkElementValueById('customize-snapchat-input', null);
-            const tiktok = checkElementValueById('customize-tiktok-input', null);
+            //const facebook = checkElementValueById('customize-facebook-input', null);
+            //const linkedin = checkElementValueById('customize-linkedin-input', null);
+            //const github = checkElementValueById('customize-github-input', null);
+            // const instagram = checkElementValueById('customize-instagram-input', null);
+            // const youtube = checkElementValueById('customize-youtube-input', null);
+            // const whatsapp = checkElementValueById('customize-whatsapp-input', null);
+            // const twitter = checkElementValueById('customize-twitter-input', null);
+            // const snapchat = checkElementValueById('customize-snapchat-input', null);
+            // const tiktok = checkElementValueById('customize-tiktok-input', null);
 
             const payload = {
                 workspaceId: wsCmsId,
