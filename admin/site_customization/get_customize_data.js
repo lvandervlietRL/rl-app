@@ -48,10 +48,10 @@ colorPicker.on(["color:init", "color:change"], function(color){
 });
 
 // Function to show the edit modal and populate it with site data
-function showEditModal() {
+function showSiteEditModal() {
     try {
         const modal = document.getElementById('customize-site-modal');
-        if (!modal) throw new Error('Edit modal not found.');
+        if (!modal) throw new Error('Customize site modal not found.');
 
         // Display the modal
         modal.style.display = 'block';
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (editButton) {
         editButton.addEventListener('click', () => {
-            showEditModal();
+            showSiteEditModal();
         });
     } else {
         console.warn('Edit site button not found.');
