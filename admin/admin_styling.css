@@ -23,7 +23,7 @@
   width: 100%;
   table-layout: auto; 
   border-spacing: 0; /* No extra spacing between cells */
-  border-radius: 10px; /* Rounded outer corners */
+  /* border-radius: 10px; /* Rounded outer corners */
   /* overflow: hidden; /* Ensures content respects the rounded corners */
   font-size: 14px;
   text-align: left;
