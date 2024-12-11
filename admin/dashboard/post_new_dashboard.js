@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: dashboardName,
                     slug: dashboardSlug,
                     "dashboard-omschrijving": dashboardDescription,
-                    "dashboard-tool": dashboardTool
+                    "dashboard-tool": dashboardTool,
                     "public-link": dashboardLink
                 }
             };
