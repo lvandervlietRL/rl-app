@@ -37,15 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to populate the form fields from the first webhook data
     function populateFormFields(item) {
-        const dashboardNameInput = document.querySelector('.dashboard-name'); // Select the name input field
-        const dashboardDescriptionInput = document.querySelector('.dashboard-description'); // Select the description input field
-        const dashboardLinkInput = document.querySelector('.dashboard-link'); // Select the role input field
-        const dashboardSlugInput = document.querySelector('.dashboard-slug'); // Select the slug input field
-        const dashboardWorkspacesText = document.querySelector('.dashboard-workspaces'); // Select the workspaces text block
+        const dashboardNameInput = document.querySelector('.dashboard-name'); 
+        const dashboardDescriptionInput = document.querySelector('.dashboard-description'); 
+        const dashboardToolInput = document.querySelector('.dashboard-tool'); 
+        const dashboardLinkInput = document.querySelector('.dashboard-link'); 
+        const dashboardSlugInput = document.querySelector('.dashboard-slug'); 
+        const dashboardWorkspacesText = document.querySelector('.dashboard-workspaces'); 
 
         // Extract fieldData from the matched item
         const name = item.fieldData.name || 'No name available';
         const description = item.fieldData["dashboard-omschrijving"] || 'No description available';
+        const tool = item.fieldData["dashboard-tool-2"] || 'No dashboard tool available';
         const link = item.fieldData["public-link"] || 'No role available';
         const slug = item.fieldData.slug || 'No slug available';
         const dashboards = item.fieldData["workspace-4"] || []; // Extract workspaces array
