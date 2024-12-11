@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const dashboardDescription = checkElementValue('.new-dashboard-description', 'Error: Dashboard description cannot be empty.');
             if (dashboardDescription === null) return;
 
+            const dashboardTool = checkElementValue('.new-dashboard-tool', 'Error: Dashboard tool cannot be empty.');
+            if (dashboardTool === null) return;
+            
             const dashboardLink = checkElementValue('.new-dashboard-link', 'Error: Dashboard link cannot be empty.');
             if (dashboardLink === null) return;
 
@@ -40,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: dashboardName,
                     slug: dashboardSlug,
                     "dashboard-omschrijving": dashboardDescription,
+                    "dashboard-tool": dashboardTool
                     "public-link": dashboardLink
                 }
             };
