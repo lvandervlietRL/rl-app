@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Extract fieldData from the matched item
         const name = item.fieldData.name || 'No name available';
         const description = item.fieldData["dashboard-omschrijving"] || 'No description available';
-        const tool = item.fieldData["dashboard-tool-2"] || 'No dashboard tool available';
+        const tool = item.fieldData["dashboard-tool-3"] || 'No dashboard tool available';
         const link = item.fieldData["public-link"] || 'No role available';
         const slug = item.fieldData.slug || 'No slug available';
         const dashboards = item.fieldData["workspace-4"] || []; // Extract workspaces array
@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (dashboardDescriptionInput) {
             dashboardDescriptionInput.value = description; // Set the description input field's value
+        }
+        if (dashboardToolInput) {
+            dashboardToolInput.value = tool; // Set the tool input field's value
         }
         if (dashboardLinkInput) {
             dashboardLinkInput.value = link; // Set the link input field's value
