@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const dashboardName = checkElementValue('.dashboard-name', 'Error: Dashboard name cannot be empty.');
             if (dashboardName === null) return;
 
+            const dashboardImage = checkElementValue('.dashboard-image', 'Error: Dashboard image cannot be empty.');
+            if (dashboardImage === null) return;
+
             const dashboardSlug = checkElementValue('.dashboard-slug', 'Error: Dashboard slug cannot be empty.');
             if (dashboardSlug === null) return;
 
@@ -46,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isDraft: false,
                 fieldData: {
                     name: dashboardName, 
+                    image: dashboardImage,
                     slug: dashboardSlug, 
                     "dashboard-omschrijving": dashboardDescription, 
                     "dashboard-tool": dashboardTool,
