@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dashboardNameInput.value = name; // Set the name input field's value
         }
         if (dashboardImageInput) {
-            dashboardImageInput.value = name; // Set the image input field's value
+            dashboardImageInput.value = image; // Set the image input field's value
         }
         if (dashboardDescriptionInput) {
             dashboardDescriptionInput.value = description; // Set the description input field's value
