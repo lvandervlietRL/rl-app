@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Extract fieldData from the matched item
         const name = item.fieldData.name || 'No name available';
-        const image = item.fieldData["dashboard-image"].url === undefined ? '' : item.fieldData["dashboard-image"].url;
+        const image = item.fieldData["dashboard-image"]?.url || 'No tool available';
         const description = item.fieldData["dashboard-omschrijving"] || 'No description available';
         const tool = item.fieldData["dashboard-tool-3"] || 'No dashboard tool available';
         const link = item.fieldData["public-link"] || 'No role available';
