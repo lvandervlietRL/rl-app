@@ -102,8 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const workspaceName = checkElementValue('.new-workspace-name', 'Error: Workspace name cannot be empty.');
             if (workspaceName === null) return;
 
-            // const workspaceImage = checkElementValue('.new-workspace-image', 'Error: Workspace name cannot be empty.');
-            // if (workspaceName === null) return;
+            const workspaceImage = document.getElementById('imageUrl').textContent;
 
             const workspaceSlug = checkElementValue('.new-workspace-slug', 'Error: Workspace slug cannot be empty.');
             if (workspaceSlug === null) return;
@@ -124,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 fieldData: {
                     WorkspaceId: wsCmsId,
                     name: workspaceName,
-                    image: blobImageUrl,
+                    image: workspaceImage,
                     slug: workspaceSlug,
                     "workspace-omschrijving": workspaceDescription,
                     rol: workspaceRole,
