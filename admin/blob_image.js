@@ -11,10 +11,17 @@ uploadButton.addEventListener("click", async () => {
     return;
   }
 
+  // Step 1: Check if the file is an image
+  const allowedImageTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+  if (!allowedImageTypes.includes(file.type)) {
+    status.textContent = "Please select a valid image file (JPEG, PNG, GIF, or WEBP).";
+    return;
+  }
+
   try {
     status.textContent = "Fetching SAS token...";
 
-    // Step 1: Fetch the SAS token
+    // Step 2: Fetch the SAS token
     const response = await fetch(
       "https://datatosharefunctions.azurewebsites.net/api/addBlobImage?code=ghWdSVrNXmeOMgrOu85nZ07uyb58KHCDYvthI8YaBIvYAzFuztt1HA%3D%3D",
       {
@@ -30,16 +37,14 @@ uploadButton.addEventListener("click", async () => {
     }
 
     const { sasToken } = await response.json();
-    console.log("SAS token received:", sasToken);
 
-    // Step 2: Construct the Blob URL with the SAS token
+    // Step 3: Construct the Blob URL with the SAS token
     const accountName = "datatoshare";
     const containerName = "images";
     const blobUrl = `https://${accountName}.blob.core.windows.net/${containerName}/${file.name}?${sasToken}`;
     const blobImageUrl = `https://${accountName}.blob.core.windows.net/${containerName}/${file.name}`;
-    console.log("Blob URL:", blobUrl);
 
-    // Step 3: Upload the file to Azure Blob Storage
+    // Step 4: Upload the file to Azure Blob Storage
     status.textContent = "Uploading file...";
     const uploadResponse = await fetch(blobUrl, {
       method: "PUT",
