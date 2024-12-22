@@ -42,7 +42,7 @@ uploadButton.addEventListener("click", async () => {
     const accountName = "datatoshare";
     const containerName = "images";
     const blobUrl = `https://${accountName}.blob.core.windows.net/${containerName}/${file.name}?${sasToken}`;
-    const blobImageUrl = `https://${accountName}.blob.core.windows.net/${containerName}/${file.name}`;
+    let blobImageUrl = `https://${accountName}.blob.core.windows.net/${containerName}/${file.name}`;
 
     // Step 4: Upload the file to Azure Blob Storage
     status.textContent = "Uploading file...";
