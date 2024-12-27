@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to populate the form fields from the first webhook data
     function populateFormFields(item) {
         const dashboardNameInput = document.querySelector('.dashboard-name'); 
-        const dashboardImageInput = document.querySelector('.dashboard-image'); 
         const dashboardDescriptionInput = document.querySelector('.dashboard-description'); 
         const dashboardToolInput = document.querySelector('.dashboard-tool'); 
         const dashboardLinkInput = document.querySelector('.dashboard-link'); 
@@ -47,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Extract fieldData from the matched item
         const name = item.fieldData.name || 'No name available';
-        const image = item.fieldData["dashboard-image"]?.url || '';
         const description = item.fieldData["dashboard-omschrijving"] || 'No description available';
         const tool = item.fieldData["dashboard-tool-3"] || 'No dashboard tool available';
         const link = item.fieldData["public-link"] || 'No role available';
@@ -57,9 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set the value of the input fields
         if (dashboardNameInput) {
             dashboardNameInput.value = name; // Set the name input field's value
-        }
-        if (dashboardImageInput) {
-            dashboardImageInput.value = image; // Set the image input field's value
         }
         if (dashboardDescriptionInput) {
             dashboardDescriptionInput.value = description; // Set the description input field's value
