@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const workspaceName = checkElementValue('.workspace-name', 'Error: Workspace name cannot be empty.');
             if (workspaceName === null) return; 
 
+            const workspaceImage = document.getElementById('WorkspacesimageUrl').textContent;
+
             const workspaceSlug = checkElementValue('.workspace-slug', 'Error: Workspace slug cannot be empty.');
             if (workspaceSlug === null) return;
 
@@ -53,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isDraft: false,
                 fieldData: {
                     name: workspaceName, 
+                    image: workspaceImage,
                     slug: workspaceSlug, 
                     "workspace-omschrijving": workspaceDescription, 
                     rol: workspaceRole,
