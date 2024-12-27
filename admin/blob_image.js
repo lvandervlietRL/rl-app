@@ -19,15 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
         fileInput: document.getElementById(`${selectedTabName}fileInput`),
         status: document.getElementById(`${selectedTabName}status`),
         imageUrl: document.getElementById(`${selectedTabName}imageUrl`),
+        imageUpload: document.getElementById(`${selectedTabName}imageUpload`),
       };
 
       // Validate if all elements are found
-      if (!elements.fileInput || !elements.status || !elements.imageUrl) {
+      if (!elements.fileInput || !elements.status || !elements.imageUrl || !elements.imageUpload) {
         console.error('One or more elements are missing for the current tab.');
         return;
       }
 
-      const { fileInput, status, imageUrl } = elements;
+      const { fileInput, status, imageUrl, imageUpload } = elements;
 
       // Validate file selection
       const file = fileInput.files[0];
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         status.textContent = "File uploaded successfully.";
         imageUrl.textContent = blobImageUrl;
-        console.log("File uploaded successfully.");
+        imageUpload.src = blobImageUrl;
       } catch (error) {
         status.textContent = `Error during upload: ${error.message}`;
         console.error("Error during upload:", error.message);
