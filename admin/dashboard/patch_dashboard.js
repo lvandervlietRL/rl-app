@@ -27,8 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const dashboardName = checkElementValue('.dashboard-name', 'Error: Dashboard name cannot be empty.');
             if (dashboardName === null) return;
 
-            const dashboardImage = checkElementValue('.dashboard-image', 'Error: Dashboard image cannot be empty.');
-            if (dashboardImage === null) return;
+            const dashboardImage = document.getElementById('DashboardsimageUrl').textContent;
 
             const dashboardSlug = checkElementValue('.dashboard-slug', 'Error: Dashboard slug cannot be empty.');
             if (dashboardSlug === null) return;
