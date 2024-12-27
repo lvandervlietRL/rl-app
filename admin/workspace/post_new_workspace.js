@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const workspaceName = checkElementValue('.new-workspace-name', 'Error: Workspace name cannot be empty.');
             if (workspaceName === null) return;
 
-            const workspaceImage = document.getElementById('imageUrl').textContent;
+            const workspaceImage = document.getElementById('Workspace toevoegenimageUrl').textContent;
 
             const workspaceSlug = checkElementValue('.new-workspace-slug', 'Error: Workspace slug cannot be empty.');
             if (workspaceSlug === null) return;
